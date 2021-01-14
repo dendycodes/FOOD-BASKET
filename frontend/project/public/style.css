@@ -1,0 +1,18 @@
+.body {
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+nav {
+  width: 100%;
+}
+
+label:hover {
+  cursor: pointer;
+}

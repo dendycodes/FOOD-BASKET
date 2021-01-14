@@ -1,0 +1,33 @@
+.header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 2px 2px 0px 0px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 12%;
+  width: 100%;
+  color: white;
+  background-image: linear-gradient(
+    to bottom,
+    #d19203,
+    #d09b00,
+    #cfa500,
+    #ccae00,
+    #c9b800
+  );
+  box-sizing: border-box;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h6 {
+  color: rgba(0, 0, 0, 0.63);
+}
+h3 {
+  border: 3px solid black;
+  box-sizing: border-box;
+  padding: 5px;
+  color: rgb(0, 0, 0);
+}
