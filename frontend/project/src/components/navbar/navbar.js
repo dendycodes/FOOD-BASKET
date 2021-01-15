@@ -8,19 +8,34 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
-              <li className="nav-item" id="first">
+              <li className="nav-item" id={this.props.list1}>
                 <label
-                  id="link1"
+                  id={this.props.link1}
                   className="nav-link active"
                   aria-current="page"
                 >
                   {this.props.first}
                 </label>
               </li>
-              <li className="nav-item" id="second">
-                <label className="nav-link" id="link2" href={"#signup"}>
+              <li className="nav-item" id={this.props.list2}>
+                <label
+                  className="nav-link"
+                  id={this.props.link2}
+                  href={"#signup"}
+                >
                   {this.props.second}
                 </label>
               </li>

@@ -16,6 +16,10 @@ class Login extends Component {
           second="Registration"
           loged="Contacts"
           settings="Help"
+          list1="first"
+          list2="second"
+          link1="link1"
+          link2="link2"
         />
         <LForm />
         <SForm />

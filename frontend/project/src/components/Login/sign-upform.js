@@ -32,7 +32,7 @@ class SForm extends Component {
   render() {
     const { username, email, password } = this.state;
     return (
-      <form id="signupform" onSubmit={this.submitHandler}>
+      <form className="form" id="signupform" onSubmit={this.submitHandler}>
         <h4>Creating new account</h4>
         <div className="input-group flex-nowrap m-2">
           <span className="input-group-text" id="addon-wrapping">

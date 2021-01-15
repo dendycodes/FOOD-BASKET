@@ -31,7 +31,7 @@ class LForm extends Component {
   render() {
     const { username, password } = this.state;
     return (
-      <form id="loginform" onSubmit={this.submitHandler}>
+      <form className="form" id="loginform" onSubmit={this.submitHandler}>
         <h4>Welcome, please login</h4>
         <div className="input-group flex-nowrap m-2">
           <span className="input-group-text" id="addon-wrapping">
