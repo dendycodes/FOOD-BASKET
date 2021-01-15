@@ -6,7 +6,7 @@ Basic functionalities:
 1. New user registration
 2. User login
 3. Every user can create a group food order
-4. Every user can add his order in the group
+4. Every user can add his order in group
 5. Every user can delete his order
 6. Every user can edit his order
 
