@@ -17,7 +17,7 @@ exports.signup=(req,res)=>{
   const noImg='no-img.png';
   let token,userId;
     db.doc(`/Users/${newUser.username}`).get().then(doc =>{
-      if(doc.exists){
+      if(doc.exists){ 
         return res.status(400).json({username:'This username is already taken.'})
       }else {
         return firebase.auth()
@@ -125,4 +125,28 @@ exports.signup=(req,res)=>{
       })
       busboy.end(req.rawBody);
 
+    }
+
+
+    exports.deleteUser=(req,res)=>{
+      const document=db.doc(`/Users/${req.params.userId}`);
+      document.get()
+      .then(doc=>{
+        if(!doc.exists){
+          return res.status(404).json({error:'User not found'})
+        }
+       
+          if(req.user.username==='admin'){
+            return document.delete()
+          }else return res.status(403).json({error:'Unauthorized'})
+        
+       
+      })
+      .then(()=>{
+        res.json({message:'User deleted successfully'})
+      })
+      .catch(err=>{
+        console.error(err)
+        return res.status(500).json({error:err.code})
+      })
     }
