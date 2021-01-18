@@ -109,7 +109,7 @@ else{
     return res.status(201).json(newComment);
   }
 }
- 
+
   
 })
 .then(()=>{
@@ -146,3 +146,45 @@ else{
         return res.status(500).json({error:err.code})
       })
     }
+
+
+    exports.editOrder=(req,res)=>{
+      const document=db.doc(`/orders/${req.params.orderId}`);
+      document.get()
+      .then(doc=>{
+        if(!doc.exists){
+          return res.status(404).json({error:'Order not found'})
+        }
+        if(req.body.orderName.trim()===''){
+          return res.status(400).json({orderName:'Order must not be empty.'})
+        }   
+        if(req.body.hour>23 || req.body.hour<0){
+          return res.status(400).json({hour:'Must be a valid hour.'})
+        }
+    
+        if(req.body.minutes>59 || req.body.minutes<0){
+          return res.status(400).json({minutes:'Must be valid minutes'})
+        }
+      const newOrder=req.body;
+      
+       if(doc.data().username!==req.user.username){
+         if(req.user.username==='admin'){
+          document.update(newOrder);
+         return res.json({message:`document ${req.params.orderId} edited successfully`});
+         }
+        return res.status(403).json({error:'Unauthorized'})
+        }
+      document.update(newOrder).then((el)=>{
+        res.json({message:`document ${req.params.orderId} edited successfully`})
+      })
+      .catch((err)=>{
+        res.status(500).json({error:'something went wrong'})
+        console.log(err);
+      })
+
+ 
+
+
+      }
+    
+      )}
