@@ -109,9 +109,7 @@ else{
     return res.status(201).json(newComment);
   }
 }
-  //write your if here :if coment time > order time dont post coment
-  //need date as well 
-  //make role admiin who can delete users + delete everything in the db
+ 
   
 })
 .then(()=>{
