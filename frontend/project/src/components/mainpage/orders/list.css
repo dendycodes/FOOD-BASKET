@@ -1,0 +1,43 @@
+.order {
+  float: right;
+  width: 660px;
+  margin-bottom: 10px;
+  background-color: rgb(255, 255, 255);
+
+  border-radius: 7px;
+}
+.ordr {
+  width: 97.5%;
+  min-height: 200px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(173, 173, 173);
+  margin: 1.25%;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 8px;
+  transition: 0.5s;
+}
+h6 {
+  float: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  height: 32px;
+}
+.hdr {
+  color: black;
+  height: 40px;
+  padding: 5px;
+}
+
+#addbutton {
+  float: right;
+  padding: px;
+}
+
+hr {
+  margin: 5px;
+}

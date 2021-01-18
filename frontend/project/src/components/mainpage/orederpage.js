@@ -1,9 +1,36 @@
 import React, { Component } from "react";
 import "./main.css";
-import Order from "./allorders/ordered.js";
+import List from "./orders/list.js";
 class Orders extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      groupname: "",
+      orderdetail: "",
+    };
+  }
+
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  submitHandler = (e) => {
+    e.preventDefault();
+    console.log(JSON.stringify(this.state));
+    fetch("/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+      },
+      body: JSON.stringify(this.state),
+    });
+    document.getElementById("groupname").value = null;
+    document.getElementById("orderdetail").value = null;
+  };
+
   render() {
+    const { groupname, orderdetail } = this.state;
     return (
       <div id="ordr">
         <div className="accordion" id="accordionExample">
@@ -38,38 +65,50 @@ class Orders extends Component {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <input
-                  type="text"
-                  className="form-control m-1"
-                  aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-default"
-                  placeholder="Order Name"
-                ></input>
+                <form onSubmit={this.submitHandler}>
+                  <input
+                    id="groupname"
+                    name="groupname"
+                    value={groupname}
+                    type="text"
+                    className="form-control m-1"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default"
+                    placeholder="Group name"
+                    onChange={this.changeHandler}
+                    required
+                  ></input>
 
-                <textarea
-                  className="form-control m-1 h-75"
-                  aria-label="With textarea"
-                  placeholder="Your order details"
-                ></textarea>
+                  <textarea
+                    id="orderdetail"
+                    name="orderdetail"
+                    value={orderdetail}
+                    className="form-control m-1 h-75"
+                    aria-label="With textarea"
+                    placeholder="Your comment"
+                    onChange={this.changeHandler}
+                    required
+                  ></textarea>
 
-                <button type="button" className="btn btn-danger w-100 m-1">
-                  Order now
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-patch-check-fill m-1"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
-                  </svg>
-                </button>
+                  <button type="submit" className="btn btn-danger w-100 m-1">
+                    Create group
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-patch-check-fill m-1"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
+                    </svg>
+                  </button>
+                </form>
               </div>
             </div>
           </div>
         </div>
-        <Order />
+        <List />
       </div>
     );
   }

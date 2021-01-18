@@ -2,28 +2,24 @@
   display: block;
   width: 100%;
 }
-#welcome {
-  height: 400px;
-  width: 100%;
-  background-color: rgb(255, 255, 255);
-}
 
 #ordr {
   background-color: rgb(252, 252, 252);
   box-sizing: border-box;
   padding: 10px;
   width: 100%;
-  display: none;
+  display: block;
 }
 .accordion {
   float: left;
   width: 400px;
+  margin-bottom: 10px;
 }
 .accordion-body {
   width: 100%;
   height: 400px;
   background-color: #ffffff;
-  border: 1px solid rgb(173, 173, 173);
+  border: 0px;
   border-radius: 2px;
 }
 
@@ -33,4 +29,7 @@
 }
 .form-control {
   border: 1px solid rgb(173, 173, 173);
+}
+form {
+  height: 100%;
 }
