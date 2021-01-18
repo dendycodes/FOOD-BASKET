@@ -1,4 +1,3 @@
-const { user } = require('firebase-functions/lib/providers/auth');
 const {db}=require('../util/admin');
 
 exports.getComments=(req,res)=>{
@@ -29,8 +28,6 @@ exports.getComments=(req,res)=>{
     createdAt:new Date(),
     price:req.body.price,
     username:req.user.username
-  
-    
   }
   
   db.collection('comments').add(newComment).then((doc)=>{
@@ -68,3 +65,41 @@ exports.deleteComment=(req,res)=>{
     return res.status(500).json({error:err.code})
   })
 }
+
+ 
+exports.editComment=(req,res)=>{
+  const document=db.doc(`/comments/${req.params.commentId}`);
+  document.get()
+  .then(doc=>{
+    if(!doc.exists){
+      return res.status(404).json({error:'Comment not found'})
+    }
+    if(req.body.comment.trim()===''){
+      return res.status(400).json({Comment:'Comment must not be empty.'})
+    }   
+    if(req.body.price===0){
+      return res.status(400).json({Comment:'Comment must have price.'})
+    }
+  const newComment=req.body;
+  
+   if(doc.data().username!==req.user.username){
+     if(req.user.username==='admin'){
+      document.update(newComment);
+     return res.json({message:`document ${req.params.commentId} edited successfully`});
+     }
+    return res.status(403).json({error:'Unauthorized'})
+    }
+  document.update(newComment).then((el)=>{
+    res.json({message:`document ${req.params.commentId} edited successfully`})
+  })
+  .catch((err)=>{
+    res.status(500).json({error:'something went wrong'})
+    console.log(err);
+  })
+
+
+
+
+  }
+
+  )}
