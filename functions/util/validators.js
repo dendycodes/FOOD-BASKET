@@ -17,6 +17,7 @@ const isEmail=(email)=>{
     else if(!isEmail(data.email)){
       errors.email='Must be a valid email address'
     }
+ 
   
     if(isEmpty(data.password)){
       errors.password='Must not be empty';
