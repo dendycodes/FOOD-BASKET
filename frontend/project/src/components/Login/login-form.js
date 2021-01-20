@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./login.css";
+import "../mainpage/main.js";
+
 class LForm extends Component {
   constructor(props) {
     super(props);

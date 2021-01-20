@@ -9,7 +9,7 @@ class Main extends Component {
   state = {};
   render() {
     return (
-      <div className="main">
+      <div className="main" id="mn">
         <Navbar
           id="mainnav"
           first="Today's Orders"

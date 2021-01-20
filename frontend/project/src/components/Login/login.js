@@ -10,7 +10,7 @@ class Login extends Component {
   state = {};
   render() {
     return (
-      <div className="login">
+      <div className="login" id="lgn">
         <Navbar
           first="Login"
           second="Registration"
