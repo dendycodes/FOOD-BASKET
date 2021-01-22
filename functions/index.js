@@ -1,6 +1,8 @@
 const functions = require("firebase-functions");
 const express = require("express");
 const app = express();
+const swaggerUi = require("swagger-ui-express"),
+  swaggerDocument = require("../swagger.json");
 const {
   getComments,
   postOneComment,
@@ -26,10 +28,10 @@ const FBAuth = require("./util/fbAuth");
 const { db } = require("./util/admin");
 app.use(express.json());
 
-app.get("/orders", getAllOrders);
+app.get("/getOrders", getAllOrders);
 app.get("/orders/:orderId", getOrder);
-app.get("/comments", getComments);
-app.get("/users", FBAuth, getUsers);
+app.get("/getComments", getComments);
+app.get("/users", getUsers);
 
 app.post("/signup", signup);
 app.post("/login", login);
@@ -45,6 +47,7 @@ app.delete("/order/:orderId", FBAuth, deleteOrder);
 app.delete("/comment/:commentId", FBAuth, deleteComment);
 app.delete("/user/:userId", FBAuth, deleteUser);
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 exports.api = functions.region("europe-west1").https.onRequest(app);
 
 exports.onUserImageChange = functions
