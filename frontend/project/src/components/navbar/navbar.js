@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 class Navbar extends Component {
   state = {};
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -56,14 +57,12 @@ class Navbar extends Component {
                   aria-labelledby="navbarDropdownMenuLink"
                 >
                   <li>
-                    <label className="dropdown-item" href={"#com"}>
+                    <label className="dropdown-item">
                       {this.props.settings}
                     </label>
                   </li>
                   <li>
-                    <label className="dropdown-item" href={"#com"}>
-                      {this.props.logout}
-                    </label>
+                    <label className="dropdown-item">{this.props.logout}</label>
                   </li>
                 </ul>
               </li>

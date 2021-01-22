@@ -13,7 +13,7 @@ class Main extends Component {
         <Navbar
           id="mainnav"
           first="Today's Orders"
-          loged="USER"
+          loged={this.props.user}
           settings="Settings"
           logout="Logout"
           list1="home"

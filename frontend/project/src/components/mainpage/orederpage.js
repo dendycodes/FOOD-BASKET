@@ -85,11 +85,18 @@ class Orders extends Component {
                     value={orderdetail}
                     className="form-control m-1 h-75"
                     aria-label="With textarea"
-                    placeholder="Your comment"
+                    placeholder="Type your order here"
                     onChange={this.changeHandler}
                     required
                   ></textarea>
-
+                  <div className="col-10 w-100">
+                    <input
+                      class="form-control m-1 w-100"
+                      type="time"
+                      value="13:45:00"
+                      id="example-time-input"
+                    />
+                  </div>
                   <button type="submit" className="btn btn-danger w-100 m-1">
                     Create group
                     <svg

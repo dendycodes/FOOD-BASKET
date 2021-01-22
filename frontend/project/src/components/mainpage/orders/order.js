@@ -8,7 +8,7 @@ class Neworder extends Component {
       <div className="ordr">
         <div className="hdr">
           <h6>
-            Group name: " <b> {this.props.groupname}"</b>
+            Group name: " <b> {this.props.group}"</b>
           </h6>
           <button
             id="addbutton"
@@ -17,10 +17,12 @@ class Neworder extends Component {
             data-bs-target="#exampleModal"
             data-bs-whatever="@mdo"
           >
-            New comment
+            New order
           </button>
         </div>
         <hr />
+        <h6> {this.props.user}</h6>
+
         <div
           className="modal fade"
           id="exampleModal"
@@ -32,7 +34,7 @@ class Neworder extends Component {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">
-                  Type your comment
+                  Your order
                 </h5>
                 <button
                   type="button"
@@ -46,7 +48,7 @@ class Neworder extends Component {
                   <div className="mb-3"></div>
                   <div className="mb-3">
                     <label htmlFor="message-text" className="col-form-label">
-                      Comment:
+                      Type your order here:
                     </label>
                     <textarea
                       className="form-control"
@@ -64,7 +66,7 @@ class Neworder extends Component {
                   Close
                 </button>
                 <button type="button" className="btn btn-danger">
-                  Add
+                  Save
                 </button>
               </div>
             </div>

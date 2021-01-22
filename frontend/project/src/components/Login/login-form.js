@@ -50,6 +50,7 @@ class LForm extends Component {
           </span>
 
           <input
+            autoFocus
             type="text"
             className="form-control"
             placeholder="Username"
