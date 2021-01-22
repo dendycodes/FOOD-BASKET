@@ -200,7 +200,7 @@
             "in": "body",
             "description": "Order with new values of properties",
             "schema": {
-              "$ref": "#/definitions/updateUser"
+              "$ref": "#/definitions/Order"
             }
           }
         ],
