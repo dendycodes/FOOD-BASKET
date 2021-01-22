@@ -1,0 +1,428 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "My Food Basket Project CRUD",
+    "description": "My Food Basket Project Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "http://localhost:5000/foodorderproject-fe50a/europe-west1/api",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "FOOD-Basket",
+      "description": "API for Orders in the system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/getOrders": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "Get all orders in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        }
+      }
+    },
+    "/getComments": {
+      "get": {
+        "tags": ["Comments"],
+        "summary": "Get all comments in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        }
+      }
+    },
+
+    "/signup": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Create new user in system",
+        "parameters": [
+          {
+            "email": "user@email.com",
+            "username": "user",
+            "password": "user123",
+            "confirmPassword": "user123",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/Signup"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/Signup"
+            }
+          }
+        }
+      }
+    },
+
+    "/user/image": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Add profile photo",
+        "parameters": [
+          {
+            "in": "body/form-data/key=image(file), value={upload photo}",
+            "description": "Photo that we want to add"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Photo is updated"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "tags": ["Orders"],
+        "description": "Create new order in the system",
+        "parameters": [
+          {
+            "orderName": "Happy",
+            "hour": "13",
+            "minutes": "10",
+
+            "in": "body",
+            "description": "Order that we want to create",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New order is created",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        }
+      }
+    },
+    "/comments": {
+      "post": {
+        "tags": ["Comments"],
+        "description": "Create new comment in system",
+        "parameters": [
+          {
+            "comment": "Happy",
+            "price": "13",
+            "in": "body",
+            "description": "Comment that we want to create",
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "New comment is created",
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        }
+      }
+    },
+
+    "/login": {
+      "post": {
+        "tags": ["Users"],
+        "description": "User logs in the system",
+        "parameters": [
+          {
+            "email": "user@email.com",
+            "password": "user123",
+            "in": "body",
+            "description": "User logs in the system",
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Logged in successfully",
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          }
+        }
+      }
+    },
+
+    "/order/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of order that we want to find",
+          "type": "String"
+        }
+      ],
+      "put": {
+        "summary": "Update order with given ID",
+        "tags": ["Orders"],
+        "parameters": [
+          {
+            "name": "order",
+            "hour": "13",
+            "minutes": "10",
+            "in": "body",
+            "description": "Order with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/updateUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order is updated",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        }
+      }
+    },
+    "/comment/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of Comment that we want to find",
+          "type": "String"
+        }
+      ],
+      "put": {
+        "summary": "Update comment with given ID",
+        "tags": ["Comments"],
+        "parameters": [
+          {
+            "name": "comment",
+            "price": "13",
+
+            "in": "body",
+            "description": "Comment with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comment is updated",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/getUser"
+            }
+          }
+        }
+      }
+    },
+
+    "/user/{id}": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "username of user that we want to find",
+          "type": "String"
+        }
+      ],
+      "delete": {
+        "summary": "Delete user with given username",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "description": "User is deleted"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}": {
+      "parameters": [
+        {
+          "name": "orderId",
+          "in": "path",
+          "required": true,
+          "description": "The order that we want to find",
+          "type": "String"
+        }
+      ],
+      "get": {
+        "summary": "Gets the order with all its comments",
+        "tags": ["Orders"],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/comment": {
+      "parameters": [
+        {
+          "name": "orderId",
+          "in": "path",
+          "required": true,
+          "description": "Finds an order",
+          "type": "String"
+        },
+        {
+          "comment": "Happy",
+          "price": "13",
+          "in": "body",
+          "required": true,
+          "description": "Add a comment to an order",
+          "type": "String"
+        }
+      ],
+      "post": {
+        "summary": "Adds a comment to an order",
+        "tags": ["Comments"],
+        "responses": {
+          "200": {
+            "description": "Comment is added",
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "User": {
+      "required": ["email", "username", "password", "confirmPassword"],
+      "properties": {
+        "username": {
+          "type": "String",
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "String",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "String"
+        },
+        "confirmPassword": {
+          "type": "String"
+        }
+      }
+    },
+    "getUser": {
+      "properties": {
+        "username": {
+          "type": "String",
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "String",
+          "uniqueItems": true
+        },
+        "userId": {
+          "type": "String"
+        },
+        "role": {
+          "type": "String"
+        },
+        "createdAt": {
+          "type": "Timestamp"
+        },
+        "ImageUrl": {
+          "type": "String"
+        }
+      }
+    },
+
+    "UserLogin": {
+      "required": ["email", "username", "password", "confirmPassword"],
+      "properties": {
+        "email": {
+          "type": "String",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "String"
+        }
+      }
+    },
+
+    "Signup": {
+      "type": "array",
+      "$ref": "#/definitions/getUser"
+    },
+    "Order": {
+      "required": ["orderName", "hour", "minutes"],
+      "properties": {
+        "orderName": {
+          "type": "String"
+        },
+        "hour": {
+          "type": "String"
+        },
+        "minutes": {
+          "type": "String"
+        }
+      }
+    },
+    "Comment": {
+      "required": ["comment", "price"],
+      "properties": {
+        "comment": {
+          "type": "String"
+        },
+        "price": {
+          "type": "Number"
+        }
+      }
+    }
+  }
+}
