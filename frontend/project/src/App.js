@@ -3,10 +3,22 @@ import "./App.css";
 import Header from "./components/header/header.js";
 import Login from "./components/Login/login.js";
 import Main from "./components/mainpage/main.js";
+import Admin from "./components/Admin/Admin.js";
 function App() {
-  var token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const userInfo = localStorage.getItem("userInfo");
-  token = 2323;
+  var adminInfo = localStorage.getItem("userInfo");
+
+  adminInfo = "admin";
+  if (adminInfo /*Chechking for session*/) {
+    return (
+      <div className="App">
+        <Header />
+        <Admin />
+      </div>
+    );
+  }
+
   if (token /*Chechking for session*/) {
     return (
       <div className="App">

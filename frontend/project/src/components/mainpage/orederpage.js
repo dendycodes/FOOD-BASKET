@@ -7,6 +7,7 @@ class Orders extends Component {
     this.state = {
       groupname: "",
       orderdetail: "",
+      time: "",
     };
   }
 
@@ -30,7 +31,7 @@ class Orders extends Component {
   };
 
   render() {
-    const { groupname, orderdetail } = this.state;
+    const { groupname, orderdetail, time } = this.state;
     return (
       <div id="ordr">
         <div className="accordion" id="accordionExample">
@@ -83,20 +84,26 @@ class Orders extends Component {
                     id="orderdetail"
                     name="orderdetail"
                     value={orderdetail}
-                    className="form-control m-1 h-75"
+                    className="form-control m-1 "
                     aria-label="With textarea"
                     placeholder="Type your order here"
                     onChange={this.changeHandler}
                     required
                   ></textarea>
-                  <div className="col-10 w-100">
-                    <input
-                      class="form-control m-1 w-100"
-                      type="time"
-                      value="13:45:00"
-                      id="example-time-input"
-                    />
-                  </div>
+
+                  <input
+                    name="time"
+                    value={time}
+                    placeholder="Select time "
+                    required
+                    className="form-control m-1 w-100"
+                    type="time"
+                    id="example-time-input"
+                    min="09:00"
+                    max="18:00"
+                    onChange={this.changeHandler}
+                  />
+
                   <button type="submit" className="btn btn-danger w-100 m-1">
                     Create group
                     <svg
