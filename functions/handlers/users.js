@@ -86,6 +86,25 @@ exports.login = (req, res) => {
     });
 };
 
+exports.getUsers = (req, res) => {
+  db.collection("Users")
+    .orderBy("createdAt", "desc")
+    .get()
+    .then((data) => {
+      let user = [];
+      data.forEach((doc) => {
+        user.push(doc.data());
+      });
+      return res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({
+        error: err.code,
+      });
+    });
+};
+
 exports.uploadImage = (req, res) => {
   const BusBoy = require("busboy");
   const path = require("path");
