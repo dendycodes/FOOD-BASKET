@@ -15,7 +15,13 @@ const {
   deleteOrder,
   editOrder,
 } = require("./handlers/orders");
-const { signup, login, uploadImage, deleteUser } = require("./handlers/users");
+const {
+  signup,
+  login,
+  uploadImage,
+  deleteUser,
+  getUsers,
+} = require("./handlers/users");
 const FBAuth = require("./util/fbAuth");
 const { db } = require("./util/admin");
 app.use(express.json());
@@ -23,6 +29,7 @@ app.use(express.json());
 app.get("/orders", getAllOrders);
 app.get("/orders/:orderId", getOrder);
 app.get("/comments", getComments);
+app.get("/users", FBAuth, getUsers);
 
 app.post("/signup", signup);
 app.post("/login", login);
