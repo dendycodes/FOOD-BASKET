@@ -19,13 +19,13 @@ class User extends Component {
           </h6>
         </div>
         <div className="actions">
-          <button type="button" class="btn btn-secondary m-1">
+          <button type="button" className="btn btn-secondary m-1">
             View Orders
           </button>
-          <button type="button" class="btn btn-secondary m-1">
+          <button type="button" className="btn btn-secondary m-1">
             Update
           </button>
-          <button type="button" class="btn btn-danger m-1">
+          <button type="button" className="btn btn-danger m-1">
             Delete
           </button>
         </div>
