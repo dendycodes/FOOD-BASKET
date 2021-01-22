@@ -2,6 +2,7 @@ const { db } = require("../util/admin");
 
 exports.getAllOrders = (req, res) => {
   db.collection("orders")
+    .orderBy("createdAt", "desc")
     .get()
     .then((data) => {
       let order = [];
