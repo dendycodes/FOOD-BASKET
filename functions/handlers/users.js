@@ -91,11 +91,14 @@ exports.getUsers = (req, res) => {
     .orderBy("createdAt", "desc")
     .get()
     .then((data) => {
-      let user = [];
-      data.forEach((doc) => {
-        user.push(doc.data());
-      });
-      return res.json(user);
+      console.log(req.user.username);
+      if (req.user.username === "admin") {
+        let user = [];
+        data.forEach((doc) => {
+          user.push(doc.data());
+        });
+        return res.json(user);
+      } else return res.status(403).json({ error: "Unauthorized" });
     })
     .catch((err) => {
       console.error(err);
@@ -163,7 +166,9 @@ exports.deleteUser = (req, res) => {
       if (doc.data().username !== req.user.username) {
         if (req.user.username === "admin") {
           return document.delete();
-        } else return res.status(403).json({ error: "Unauthorized" });
+        } else {
+          return res.status(403).json({ error: "Unauthorized" });
+        }
       } else {
         return document.delete();
       }
