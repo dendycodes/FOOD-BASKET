@@ -17,9 +17,7 @@
 }
 .accordion-body {
   width: 100%;
-
   background-color: #ffffff;
-  border: 0px;
   border-radius: 2px;
 }
 
@@ -29,7 +27,4 @@
 }
 .form-control {
   border: 1px solid rgb(173, 173, 173);
-}
-form {
-  height: 100%;
 }

@@ -18,11 +18,11 @@ class Admin extends Component {
           logout="Logout"
         />
         <div className="adminpage">
-          <div className="accordion" id="accordionExample">
-            <div className="accordion-item">
+          <div className="accordion w-100" id="accordionExample">
+            <div className="accordion-item" id="accordion-item">
               <h2 className="accordion-header" id="headingOne">
                 <button
-                  id="btn"
+                  id="btn2"
                   className=" btn  w-25 "
                   type="button"
                   data-bs-toggle="collapse"
@@ -54,7 +54,7 @@ class Admin extends Component {
                 aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample"
               >
-                <div className="accordion-body">
+                <div className="accordion-body" id="accordion-body">
                   <User
                     username="denizmemduev"
                     email="deniz.memduev@hotmail.com"

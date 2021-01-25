@@ -5,11 +5,11 @@ import Login from "./components/Login/login.js";
 import Main from "./components/mainpage/main.js";
 import Admin from "./components/Admin/Admin.js";
 function App() {
-  const token = localStorage.getItem("token");
+  var token = localStorage.getItem("token");
   const userInfo = localStorage.getItem("userInfo");
   var adminInfo = localStorage.getItem("adminInfo");
 
-  adminInfo = "admin";
+  token = "admin";
   if (adminInfo /*Chechking for session*/) {
     return (
       <div className="App">

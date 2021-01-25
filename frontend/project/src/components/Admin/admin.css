@@ -7,7 +7,7 @@
   padding: 10px;
 }
 
-#btn {
+#btn2 {
   box-shadow: none;
   background-image: linear-gradient(
     to right top,
@@ -22,19 +22,12 @@
   font-size: 25px;
   border-radius: 5px 5px 0px 0px;
 }
-.accordion {
-  width: 100%;
-  border: none;
-}
-.accordion-body {
+
+#accordion-body {
   box-sizing: border-box;
   padding: 15px;
   border: 2px solid rgb(66, 66, 66);
   border-radius: 0px 15px 10px 10px;
-}
-
-#collapseOne {
-  border: 0px;
 }
 
 .User {
