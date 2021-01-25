@@ -31,7 +31,7 @@ app.use(express.json());
 app.get("/getOrders", getAllOrders);
 app.get("/orders/:orderId", getOrder);
 app.get("/getComments", getComments);
-app.get("/users", getUsers);
+app.get("/users", FBAuth, getUsers);
 
 app.post("/signup", signup);
 app.post("/login", login);
