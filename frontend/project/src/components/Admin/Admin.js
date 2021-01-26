@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Navbar from "../navbar/navbar.js";
+import Orderadmin from "./orderadministration.js";
 import User from "./user.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
@@ -11,19 +12,18 @@ class Admin extends Component {
       <div className="admin">
         <Navbar
           className="adminnav"
-          first="Users"
-          second="Orders"
-          loged="Admin"
+          first="Administration"
+          loged="USER"
           settings="Account settings"
           logout="Logout"
         />
         <div className="adminpage">
-          <div className="accordion w-100" id="accordionExample">
+          <div className="accordion w-100 accr" id="accordionExample">
             <div className="accordion-item" id="accordion-item">
               <h2 className="accordion-header" id="headingOne">
                 <button
                   id="btn2"
-                  className=" btn  w-25 "
+                  className=" btn "
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseOne"
@@ -32,8 +32,8 @@ class Admin extends Component {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="28"
-                    height="28"
+                    width="20"
+                    height="20"
                     fill="currentColor"
                     className="bi bi-people-fill m-1"
                     viewBox="0 0 16 16"
@@ -46,6 +46,30 @@ class Admin extends Component {
                     <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                   </svg>
                   Users
+                </button>
+                <button
+                  id="btn2"
+                  className=" btn  "
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    className="bi bi-list-nested m-1"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"
+                    />
+                  </svg>
+                  All оrders
                 </button>
               </h2>
               <div
@@ -62,6 +86,21 @@ class Admin extends Component {
                   <User />
                   <User />
                   <User />
+                </div>
+              </div>
+
+              <div
+                id="collapseTwo"
+                className="accordion-collapse collapse "
+                aria-labelledby="headingTwo"
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion-body" id="accordion-body">
+                  <Orderadmin group="Happy" user="denizmemduev" />
+                  <Orderadmin />
+                  <Orderadmin />
+                  <Orderadmin />
+                  <Orderadmin />
                 </div>
               </div>
             </div>

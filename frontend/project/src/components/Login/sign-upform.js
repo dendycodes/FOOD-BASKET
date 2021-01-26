@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./login.css";
+import $ from "jquery";
 class SForm extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +10,7 @@ class SForm extends Component {
       username: "",
       email: "",
       password: "",
+      passwordconfirm: "",
     };
   }
 
@@ -18,19 +20,26 @@ class SForm extends Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-    console.log(JSON.stringify(this.state));
-    fetch("/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(this.state),
-    });
+
+    if (this.state.password === this.state.passwordconfirm) {
+      fetch("/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+        },
+        body: JSON.stringify(this.state),
+      });
+      console.log(JSON.stringify(this.state));
+    } else {
+      $(document).ready(function () {
+        $("#message").html("Invalin password");
+      });
+    }
   };
 
   render() {
-    const { username, email, password } = this.state;
+    const { username, email, password, passwordconfirm } = this.state;
     return (
       <form className="form" id="signupform" onSubmit={this.submitHandler}>
         <h4>Creating new account</h4>
@@ -49,6 +58,7 @@ class SForm extends Component {
           </span>
 
           <input
+            required
             type="text"
             className="form-control"
             placeholder="Username"
@@ -57,7 +67,7 @@ class SForm extends Component {
             name="username"
             value={username}
             onChange={this.changeHandler}
-          ></input>
+          />
         </div>
 
         <div className="input-group flex-nowrap m-2">
@@ -75,6 +85,7 @@ class SForm extends Component {
           </span>
 
           <input
+            required
             type="email"
             className="form-control"
             placeholder="Email"
@@ -83,7 +94,7 @@ class SForm extends Component {
             name="email"
             value={email}
             onChange={this.changeHandler}
-          ></input>
+          />
         </div>
         <div className="input-group flex-nowrap m-2">
           <span className="input-group-text" id="addon-wrapping">
@@ -100,6 +111,7 @@ class SForm extends Component {
           </span>
 
           <input
+            required
             type="password"
             className="form-control"
             placeholder="Password"
@@ -108,7 +120,34 @@ class SForm extends Component {
             name="password"
             value={password}
             onChange={this.changeHandler}
-          ></input>
+          />
+        </div>
+
+        <div className="input-group flex-nowrap m-2">
+          <span className="input-group-text" id="addon-wrapping">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-key-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+            </svg>
+          </span>
+
+          <input
+            required
+            type="password"
+            className="form-control"
+            placeholder="Confirm the password"
+            aria-label=" Confirm the password "
+            aria-describedby="addon-wrapping"
+            name="passwordconfirm"
+            value={passwordconfirm}
+            onChange={this.changeHandler}
+          />
         </div>
         <button type="submit" className="btn btn-secondary w-25 m-2">
           Sign up
@@ -117,6 +156,7 @@ class SForm extends Component {
         <label id="tologin" className="link-secondary">
           Already have an account?
         </label>
+        <label id="message"></label>
       </form>
     );
   }
