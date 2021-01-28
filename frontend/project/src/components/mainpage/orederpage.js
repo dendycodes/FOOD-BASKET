@@ -6,7 +6,6 @@ class Orders extends Component {
     super(props);
     this.state = {
       groupname: "",
-      orderdetail: "",
       time: "",
     };
   }
@@ -27,11 +26,10 @@ class Orders extends Component {
       body: JSON.stringify(this.state),
     });
     document.getElementById("groupname").value = null;
-    document.getElementById("orderdetail").value = null;
   };
 
   render() {
-    const { groupname, orderdetail, time } = this.state;
+    const { groupname, time } = this.state;
     return (
       <div id="ordr">
         <div className="accordion" id="accordionExample">
@@ -79,17 +77,6 @@ class Orders extends Component {
                     onChange={this.changeHandler}
                     required
                   ></input>
-
-                  <textarea
-                    id="orderdetail"
-                    name="orderdetail"
-                    value={orderdetail}
-                    className="form-control m-1 "
-                    aria-label="With textarea"
-                    placeholder="Type your order here"
-                    onChange={this.changeHandler}
-                    required
-                  ></textarea>
 
                   <input
                     name="time"

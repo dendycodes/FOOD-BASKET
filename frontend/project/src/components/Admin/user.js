@@ -1,14 +1,17 @@
 import React, { Component } from "react";
-
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./admin.css";
+
 class User extends Component {
   state = {};
   render() {
     return (
       <div className="User">
-        <img src="https://simpleicon.com/wp-content/uploads/user-5.png"></img>
+        <img
+          src="https://simpleicon.com/wp-content/uploads/user-5.png"
+          alt="userphoto"
+        ></img>
         <div className="vl"></div>
         <div className="info">
           <h6>
@@ -35,7 +38,13 @@ class User extends Component {
             </svg>
             View Orders
           </button>
-          <button type="button" className="btn btn-secondary m-1">
+          <button
+            type="button"
+            className="btn btn-secondary m-1"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal2"
+            data-bs-whatever="@mdo"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -59,7 +68,7 @@ class User extends Component {
             >
               <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
             </svg>
-            Delete
+            Delete User
           </button>
         </div>
       </div>

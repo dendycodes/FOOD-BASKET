@@ -4,6 +4,7 @@ import Orderadmin from "./orderadministration.js";
 import User from "./user.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
+import Updateuser from "./Modal/user-info-update.js";
 import "./admin.css";
 class Admin extends Component {
   state = {};
@@ -83,9 +84,6 @@ class Admin extends Component {
                     username="denizmemduev"
                     email="deniz.memduev@hotmail.com"
                   />
-                  <User />
-                  <User />
-                  <User />
                 </div>
               </div>
 
@@ -96,7 +94,6 @@ class Admin extends Component {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body" id="accordion-body">
-                  <Orderadmin group="Happy" user="denizmemduev" />
                   <Orderadmin />
                   <Orderadmin />
                   <Orderadmin />
@@ -106,6 +103,7 @@ class Admin extends Component {
             </div>
           </div>
         </div>
+        <Updateuser />
       </div>
     );
   }

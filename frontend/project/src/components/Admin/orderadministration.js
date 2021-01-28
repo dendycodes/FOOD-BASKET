@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./admin.css";
+import Modalorder from "./Modal/neworder";
+import Renamegroup from "./Modal/renamegroup";
 class Orderadmin extends Component {
   render() {
     return (
@@ -42,7 +44,13 @@ class Orderadmin extends Component {
             </svg>
             New order
           </button>
-          <button id="addbutton" className="btn btn-secondary m-1 ">
+          <button
+            id="addbutton"
+            className="btn btn-secondary  m-1"
+            data-bs-toggle="modal"
+            data-bs-target="#renamegroup"
+            data-bs-whatever="@mdo"
+          >
             {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -59,57 +67,8 @@ class Orderadmin extends Component {
         </div>
 
         <h6> {this.props.user}</h6>
-
-        <div
-          className="modal fade"
-          id="exampleModal"
-          tabIndex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
-                  Your order
-                </h5>
-
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <form>
-                  <div className="mb-3"></div>
-                  <div className="mb-3">
-                    <label htmlFor="message-text" className="col-form-label">
-                      Type your order here:
-                    </label>
-                    <textarea
-                      className="form-control"
-                      id="message-text"
-                    ></textarea>
-                  </div>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="button" className="btn btn-danger">
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Modalorder />
+        <Renamegroup groupname={this.props.group} />
       </div>
     );
   }

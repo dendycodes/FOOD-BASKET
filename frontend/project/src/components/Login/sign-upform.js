@@ -33,7 +33,7 @@ class SForm extends Component {
       console.log(JSON.stringify(this.state));
     } else {
       $(document).ready(function () {
-        $("#message").html("Invalin password");
+        $("#message").html("Invalid password");
       });
     }
   };

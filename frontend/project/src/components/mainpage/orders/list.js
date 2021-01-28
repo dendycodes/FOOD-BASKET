@@ -43,6 +43,9 @@ class List extends Component {
         ))}
 
         <Neworder />
+        <Neworder />
+        <Neworder />
+        <Neworder />
       </div>
     );
   }

@@ -8,7 +8,7 @@ class LForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: "",
     };
   }
@@ -31,7 +31,7 @@ class LForm extends Component {
   };
 
   render() {
-    const { username, password } = this.state;
+    const { email, password } = this.state;
     return (
       <form className="form" id="loginform" onSubmit={this.submitHandler}>
         <h4>Welcome, please login</h4>
@@ -51,13 +51,13 @@ class LForm extends Component {
 
           <input
             autoFocus
-            type="text"
+            type="email"
             className="form-control"
-            placeholder="Username"
-            aria-label="Username"
+            placeholder="Email"
+            aria-label="Email"
             aria-describedby="addon-wrapping"
-            name="username"
-            value={username}
+            name="email"
+            value={email}
             onChange={this.changeHandler}
           ></input>
         </div>

@@ -8,6 +8,7 @@ function App() {
   var token = localStorage.getItem("token");
   const userInfo = localStorage.getItem("userInfo");
   var adminInfo = localStorage.getItem("adminInfo");
+  token = "dsaS";
 
   if (adminInfo /*Chechking for session*/) {
     return (
