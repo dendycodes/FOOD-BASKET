@@ -138,3 +138,68 @@ b {
   transition: 0.5s;
   margin-top: 30px;
 }
+
+#time p {
+  float: right;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  color: white;
+  box-sizing: border-box;
+  padding: 0px 30px 0px 30px;
+}
+
+.small-pic {
+  height: 50px;
+  width: 50px;
+  margin: 3px;
+  box-sizing: border-box;
+  padding: 3px;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 4px 0px rgb(0, 0, 0);
+  box-shadow: 0px 0px 4px 0px rgb(0, 0, 0);
+}
+#box {
+  float: left;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+#box2 {
+  float: left;
+  width: 85%;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 2px;
+}
+.ds {
+  width: 70%;
+  min-height: 50px;
+}
+
+#h6 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 15px;
+}
+
+.sze {
+  width: 29px;
+  height: 29px;
+  box-sizing: border-box;
+  padding: 0.5px;
+}

@@ -21,7 +21,7 @@ class List extends Component {
     return (
       <div className="order">
         <button id="btn" className=" btn btn-dark w-100 " type="button">
-          Today's group orders
+          Today's orders
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

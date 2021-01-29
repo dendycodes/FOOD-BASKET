@@ -5,9 +5,80 @@ import User from "./user.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import Updateuser from "./Modal/user-info-update.js";
+import "./user.js";
+
 import "./admin.css";
 class Admin extends Component {
-  state = {};
+  constructor() {
+    super();
+    this.state = {
+      users: [
+        {
+          id: "7WwKLvTGBRXPvsIgghFHdil",
+          username: "Nikolay",
+          email: "nik@abv.bg",
+        },
+        {
+          id: "7WwKLvTGBRXPvsIhnjHdil",
+          username: "Deniz",
+          email: "deniz.memduev@hotmail.com",
+        },
+        {
+          id: "7WwKLvTGBRXPverIFHgxcgxdil",
+          username: "Nikola",
+          email: "nikola@abv.bg",
+        },
+        {
+          id: "7WwKLvTGBRXPvsIretFHgxgdil",
+          username: "Kamen",
+          email: "kamen@abv.bg",
+        },
+      ],
+
+      orders: [
+        {
+          orderid: "syqzIw8ofnsd3Y9SbABBdS",
+          orderName: "Поръчка от Хепи",
+          username: "new",
+          hour: "14",
+          minute: "35",
+        },
+
+        {
+          orderid: "syqzIw8ofn3Y9SggdbABBdS",
+          orderName: "Поръчка от Billa",
+          username: "gabriela",
+          hour: "11",
+          minute: "35",
+        },
+
+        {
+          orderid: "syqzIw8ofn3Y9SfdfbABBdS",
+          orderName: "Поръчка от McDonalds",
+          username: "deniz",
+          hour: "15",
+          minute: "35",
+        },
+
+        {
+          orderid: "syqzIw8ofn3Y9SbssfdtrtABBdS",
+          orderName: "Поръчка от Kaufland",
+          username: "ivan",
+          hour: "13",
+          minute: "35",
+        },
+      ],
+    };
+  }
+  /*
+  componentDidMount() {
+    fetch("/users")
+      .then((res) => res.json())
+      .then((users) =>
+        this.setState({ users }, () => console.log("Users fatched..", users))
+      );
+  }
+*/
   render() {
     return (
       <div className="admin">
@@ -70,7 +141,7 @@ class Admin extends Component {
                       d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"
                     />
                   </svg>
-                  All оrders
+                  Orders
                 </button>
               </h2>
               <div
@@ -80,10 +151,13 @@ class Admin extends Component {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body" id="accordion-body">
-                  <User
-                    username="denizmemduev"
-                    email="deniz.memduev@hotmail.com"
-                  />
+                  {this.state.users.map((user) => (
+                    <User
+                      key={user.id}
+                      username={user.username}
+                      email={user.email}
+                    />
+                  ))}
                 </div>
               </div>
 
@@ -94,15 +168,20 @@ class Admin extends Component {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body" id="accordion-body">
-                  <Orderadmin />
-                  <Orderadmin />
-                  <Orderadmin />
-                  <Orderadmin />
+                  {this.state.orders.map((order) => (
+                    <Orderadmin
+                      key={order.orderid}
+                      orderName={order.orderName}
+                      hour={order.hour}
+                      minutes={order.minute}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
+
         <Updateuser />
       </div>
     );

@@ -17,7 +17,7 @@ class Neworder extends Component {
             data-bs-target="#exampleModal"
             data-bs-whatever="@mdo"
           >
-            New order
+            Add your comment
           </button>
         </div>
         <hr />

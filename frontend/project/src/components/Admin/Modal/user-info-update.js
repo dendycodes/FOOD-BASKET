@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 
 class Updateuser extends Component {
-  state = {};
   render() {
     return (
       <div
@@ -45,6 +44,7 @@ class Updateuser extends Component {
                       className="form-control"
                       aria-label="Default"
                       aria-describedby="inputGroup-sizing-default"
+                      value={this.props.updname}
                     />
                   </div>
                   <div className="input-group mb-3">
@@ -57,6 +57,7 @@ class Updateuser extends Component {
                       </span>
                     </div>
                     <input
+                      value={this.props.updemail}
                       type="text"
                       className="form-control"
                       aria-label="Default"

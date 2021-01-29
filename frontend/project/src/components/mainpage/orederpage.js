@@ -73,7 +73,7 @@ class Orders extends Component {
                     className="form-control m-1"
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default"
-                    placeholder="Group name"
+                    placeholder="Order name"
                     onChange={this.changeHandler}
                     required
                   ></input>
@@ -92,7 +92,7 @@ class Orders extends Component {
                   />
 
                   <button type="submit" className="btn btn-danger w-100 m-1">
-                    Create group
+                    Create order
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
