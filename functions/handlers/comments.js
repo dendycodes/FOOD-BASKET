@@ -7,7 +7,7 @@ exports.getComments = (req, res) => {
     .then((data) => {
       let comment = [];
       data.forEach((doc) => {
-        comment.push(doc.data());
+        comment.push({ ...doc.data(), id: doc.id });
       });
       return res.json(comment);
     })
@@ -23,13 +23,11 @@ exports.postOneComment = (req, res) => {
   if (req.body.comment.trim() === "") {
     return res.status(400).json({ Comment: "Comment must not be empty." });
   }
-  if (req.body.price === 0) {
-    return res.status(400).json({ Comment: "Comment must have price." });
-  }
+
   const newComment = {
     comment: req.body.comment,
     createdAt: new Date(),
-    price: req.body.price,
+
     username: req.user.username,
   };
 
@@ -58,17 +56,16 @@ exports.deleteComment = (req, res) => {
           return res.status(404).json({ error: "Order not found" });
         }
         let currentDate = new Date();
-        let requestedHour = parseInt(docOrder.data().hour);
-        let requestedMinutes = parseInt(docOrder.data().minutes);
+        let rTime = new Date(docOrder.data().requestedTime * 1000);
+
         if (req.user.username === "admin") {
           res.json({ message: "Comment deleted successfully" });
           return document.delete();
         }
-
         if (
-          requestedHour > currentDate.getHours() ||
-          (requestedHour === currentDate.getHours() &&
-            requestedMinutes >= currentDate.getMinutes())
+          rTime.getHours() > currentDate.getHours() ||
+          (rTime.getHours() === currentDate.getHours() &&
+            rTime.getMinutes() >= currentDate.getMinutes())
         ) {
           if (doc.data().username !== req.user.username) {
             return res.status(403).json({ error: "Unauthorized" });
@@ -77,9 +74,9 @@ exports.deleteComment = (req, res) => {
             return document.delete();
           }
         } else if (
-          requestedHour < currentDate.getHours() ||
-          (requestedHour === currentDate.getHours() &&
-            requestedMinutes < currentDate.getMinutes())
+          rTime.getHours() < currentDate.getHours() ||
+          (rTime.getHours() === currentDate.getHours() &&
+            rTime.getMinutes() < currentDate.getMinutes())
         ) {
           return res.status(404).json({ error: "Order is finished" });
         }
@@ -99,9 +96,6 @@ exports.editComment = (req, res) => {
     }
     if (req.body.comment.trim() === "") {
       return res.status(400).json({ Comment: "Comment must not be empty." });
-    }
-    if (req.body.price === 0) {
-      return res.status(400).json({ Comment: "Comment must have price." });
     }
     const newComment = req.body;
 
