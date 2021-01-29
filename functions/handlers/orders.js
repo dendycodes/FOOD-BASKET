@@ -7,7 +7,7 @@ exports.getAllOrders = (req, res) => {
     .then((data) => {
       let order = [];
       data.forEach((doc) => {
-        order.push(doc.data());
+        order.push({ ...doc.data(), id: doc.id });
       });
       return res.json(order);
     })
@@ -23,19 +23,12 @@ exports.postOrder = (req, res) => {
   if (req.body.orderName.trim() === "") {
     return res.status(400).json({ orderName: "Order must not be empty." });
   }
-  if (req.body.hour > 23 || req.body.hours < 0) {
-    return res.status(400).json({ hour: "Must be a valid hour." });
-  }
 
-  if (req.body.minutes > 59 || req.body.minutes < 0) {
-    return res.status(400).json({ minutes: "Must be valid minutes" });
-  }
   const newOrder = {
     orderName: req.body.orderName,
-    hour: req.body.hour,
-    username: req.user.username,
+    // username: req.user.username,
     createdAt: new Date(),
-    minutes: req.body.minutes,
+    requestedTime: req.body.requestedTime,
   };
 
   db.collection("orders")
@@ -81,17 +74,11 @@ exports.getOrder = (req, res) => {
 
 exports.commentOnOrder = (req, res) => {
   if (req.body.comment.trim() === "") {
-    return res.status(400).json({ error: "Must not be empty" });
-  }
-  if (req.body.comment.trim() === "") {
     return res.status(400).json({ Comment: "Comment must not be empty." });
   }
-  if (req.body.price === 0) {
-    return res.status(400).json({ Comment: "Comment must have price." });
-  }
+
   const newComment = {
     comment: req.body.comment,
-    price: req.body.price,
     createdAt: new Date(),
     orderId: req.params.orderId,
     username: req.user.username,
@@ -104,15 +91,14 @@ exports.commentOnOrder = (req, res) => {
         return res.status(404).json({ error: "Order not found" });
       }
       let currentDate = newComment.createdAt;
+      let rTime = new Date(doc.data().requestedTime * 1000);
 
-      let requestedHour = parseInt(doc.data().hour);
-      let requestedMinutes = parseInt(doc.data().minutes);
-      if (currentDate.getHours() > requestedHour) {
+      if (currentDate.getHours() > rTime.getHours()) {
         return res.json({ error: "The order is expired!" });
       } else {
         if (
-          currentDate.getHours() === requestedHour &&
-          currentDate.getMinutes() > requestedMinutes
+          currentDate.getHours() === rTime.getHours() &&
+          currentDate.getMinutes() > rTime.getMinutes()
         ) {
           return res.json({ error: "The order is expired!" });
         } else {
@@ -164,13 +150,7 @@ exports.editOrder = (req, res) => {
     if (req.body.orderName.trim() === "") {
       return res.status(400).json({ orderName: "Order must not be empty." });
     }
-    if (req.body.hour > 23 || req.body.hour < 0) {
-      return res.status(400).json({ hour: "Must be a valid hour." });
-    }
 
-    if (req.body.minutes > 59 || req.body.minutes < 0) {
-      return res.status(400).json({ minutes: "Must be valid minutes" });
-    }
     const newOrder = req.body;
 
     if (doc.data().username !== req.user.username) {
