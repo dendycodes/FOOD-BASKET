@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./admin.css";
-import $ from "jquery";
+
 import Modalorder from "./Modal/neworder";
 import Renamegroup from "./Modal/renamegroup";
 class Orderadmin extends Component {
@@ -118,10 +118,5 @@ class Orderadmin extends Component {
     );
   }
 }
-$(document).ready(function () {
-  $("#edit").click(function () {
-    var selected = $(this).val();
-    $(".ds " + selected).prop("disabled", false);
-  });
-});
+
 export default Orderadmin;

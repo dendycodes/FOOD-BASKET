@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./login.css";
 import $ from "jquery";
+import axios from "axios";
 class SForm extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +11,8 @@ class SForm extends Component {
       username: "",
       email: "",
       password: "",
-      passwordconfirm: "",
+      confirmPassword: "",
+      errors: {},
     };
   }
 
@@ -20,26 +22,35 @@ class SForm extends Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-
-    if (this.state.password === this.state.passwordconfirm) {
-      fetch("/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
-        body: JSON.stringify(this.state),
+    const loginUrl =
+      "https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/signup";
+    var newUserData = {};
+    newUserData = {
+      email: this.state.email,
+      password: this.state.password,
+      username: this.state.username,
+      confirmPassword: this.state.confirmPassword,
+    };
+    const ops = {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      data: JSON.stringify(newUserData),
+      url: loginUrl,
+    };
+    axios(ops)
+      .then((res) => {
+        localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
+        console.log("post response: " + res.username);
+      })
+      .catch((err) => {
+        this.setState({
+          errors: err.response.data,
+        });
       });
-      console.log(JSON.stringify(this.state));
-    } else {
-      $(document).ready(function () {
-        $("#message").html("Invalid password");
-      });
-    }
   };
 
   render() {
-    const { username, email, password, passwordconfirm } = this.state;
+    const { username, email, password, confirmPassword, errors } = this.state;
     return (
       <form className="form" id="signupform" onSubmit={this.submitHandler}>
         <h4>Creating new account</h4>
@@ -69,7 +80,7 @@ class SForm extends Component {
             onChange={this.changeHandler}
           />
         </div>
-
+        <p>{errors.username}</p>
         <div className="input-group flex-nowrap m-2">
           <span className="input-group-text" id="addon-wrapping">
             <svg
@@ -96,6 +107,7 @@ class SForm extends Component {
             onChange={this.changeHandler}
           />
         </div>
+        <p>{errors.email}</p>
         <div className="input-group flex-nowrap m-2">
           <span className="input-group-text" id="addon-wrapping">
             <svg
@@ -122,7 +134,7 @@ class SForm extends Component {
             onChange={this.changeHandler}
           />
         </div>
-
+        <p>{errors.password}</p>
         <div className="input-group flex-nowrap m-2">
           <span className="input-group-text" id="addon-wrapping">
             <svg
@@ -144,15 +156,16 @@ class SForm extends Component {
             placeholder="Confirm the password"
             aria-label=" Confirm the password "
             aria-describedby="addon-wrapping"
-            name="passwordconfirm"
-            value={passwordconfirm}
+            name="confirmPassword"
+            value={confirmPassword}
             onChange={this.changeHandler}
           />
         </div>
+        <p>{errors.confirmPassword}</p>
         <button type="submit" className="btn btn-secondary w-25 m-2">
           Sign up
         </button>
-
+        <p>{errors.error}</p>
         <label id="tologin" className="link-secondary">
           Already have an account?
         </label>

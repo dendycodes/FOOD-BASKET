@@ -3,35 +3,53 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./login.css";
 import "../mainpage/main.js";
-
+import axios from "axios";
 class LForm extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       email: "",
       password: "",
+      errors: {},
     };
   }
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
   submitHandler = (e) => {
     e.preventDefault();
-    console.log(JSON.stringify(this.state));
-    fetch("/", {
+    console.log(this.state);
+
+    const loginUrl =
+      "https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/login";
+    var userData = {};
+    userData = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    const ops = {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(this.state),
-    });
+      headers: { "content-type": "application/json" },
+      data: JSON.stringify(userData),
+      url: loginUrl,
+    };
+    axios(ops)
+      .then((res) => {
+        localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
+
+        console.log("post response: " + res.data.token);
+        window.location.reload();
+      })
+      .catch((err) => {
+        this.setState({
+          errors: err.response.data,
+        });
+      });
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, errors } = this.state;
     return (
       <form className="form" id="loginform" onSubmit={this.submitHandler}>
         <h4>Welcome, please login</h4>
@@ -61,6 +79,7 @@ class LForm extends Component {
             onChange={this.changeHandler}
           ></input>
         </div>
+        <p>{errors.email}</p>
         <div className="input-group flex-nowrap m-2">
           <span className="input-group-text" id="addon-wrapping">
             <svg
@@ -86,6 +105,7 @@ class LForm extends Component {
             onChange={this.changeHandler}
           ></input>
         </div>
+        <p>{errors.password}</p>
         <button
           type="submit"
           onSubmit={this.submitHandler}
@@ -93,7 +113,10 @@ class LForm extends Component {
         >
           Login
         </button>
-
+        <p>
+          {errors.error}
+          {errors.general}
+        </p>
         <label id="tosignup" className="link-secondary">
           Create new account
         </label>

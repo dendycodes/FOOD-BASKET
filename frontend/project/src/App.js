@@ -4,12 +4,13 @@ import Header from "./components/header/header.js";
 import Login from "./components/Login/login.js";
 import Main from "./components/mainpage/main.js";
 import Admin from "./components/Admin/Admin.js";
+
 function App() {
-  var token = localStorage.getItem("token");
+  const token = localStorage.getItem("FBIdToken");
+  // = localStorage.getItem("token");
   const userInfo = localStorage.getItem("userInfo");
   var adminInfo = localStorage.getItem("adminInfo");
-  token = "dsaS";
-
+  adminInfo = "dasda";
   if (adminInfo /*Chechking for session*/) {
     return (
       <div className="App">
