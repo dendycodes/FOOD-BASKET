@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import Updateuser from "./Modal/user-info-update.js";
 import axios from "axios";
+import Modalorder from "./Modal/neworder";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./user.js";
@@ -18,10 +19,11 @@ class Admin extends Component {
     this.state = {
       users: [],
       orders: [],
+      comments: [],
     };
   }
 
-  dp() {
+  Orders() {
     let config = {
       headers: {
         Authorization: localStorage.getItem("FBIdToken"),
@@ -38,6 +40,29 @@ class Admin extends Component {
         console.log(res.data);
         this.setState({
           orders: res.data,
+        });
+      })
+
+      .catch((err) => console.log(err));
+  }
+
+  Comments() {
+    let config = {
+      headers: {
+        Authorization: localStorage.getItem("FBIdToken"),
+      },
+    };
+
+    axios
+      .get(
+        "https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/getComments",
+        config
+      )
+
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          comments: res.data,
         });
       })
 
@@ -66,7 +91,8 @@ class Admin extends Component {
 
       .catch((err) => console.log(err));
 
-    this.dp();
+    this.Orders();
+    this.Comments();
   }
 
   render() {
@@ -163,9 +189,13 @@ class Admin extends Component {
                   <div className="accordion-body" id="accordion-body">
                     {this.state.orders.map((order) => (
                       <Orderadmin
+                        orderid={order.id}
                         key={order.id}
                         orderName={order.orderName}
-                        hour={order.requestedTime}
+                        hour={new Date(order.requestedTime * 1000).getHours()}
+                        minutes={new Date(
+                          order.requestedTime * 1000
+                        ).getMinutes()}
                       />
                     ))}
                   </div>
@@ -177,6 +207,7 @@ class Admin extends Component {
         <Switch>
           <Route path="/" component={Updateuser} />
         </Switch>
+        <Route path="/" component={Modalorder} />
       </Router>
     );
   }

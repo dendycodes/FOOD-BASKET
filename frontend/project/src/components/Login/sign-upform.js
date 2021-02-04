@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./login.css";
-import $ from "jquery";
+import { Link } from "react-router-dom";
 import axios from "axios";
 class SForm extends Component {
   constructor(props) {
@@ -166,10 +166,11 @@ class SForm extends Component {
           Sign up
         </button>
         <p>{errors.error}</p>
-        <label id="tologin" className="link-secondary">
-          Already have an account?
-        </label>
-        <label id="message"></label>
+        <Link to={"/"}>
+          <label id="tologin" className="link-secondary">
+            Already have an account?
+          </label>
+        </Link>
       </form>
     );
   }

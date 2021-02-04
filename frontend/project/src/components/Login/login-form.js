@@ -4,6 +4,7 @@ import "bootstrap/dist/js/bootstrap.js";
 import "./login.css";
 import "../mainpage/main.js";
 import axios from "axios";
+import { Link } from "react-router-dom";
 class LForm extends Component {
   constructor() {
     super();
@@ -38,6 +39,7 @@ class LForm extends Component {
       .then((res) => {
         localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
 
+        console.log("post response: " + res.data);
         console.log("post response: " + res.data.token);
         window.location.reload();
       })
@@ -106,6 +108,7 @@ class LForm extends Component {
           ></input>
         </div>
         <p>{errors.password}</p>
+
         <button
           type="submit"
           onSubmit={this.submitHandler}
@@ -117,9 +120,12 @@ class LForm extends Component {
           {errors.error}
           {errors.general}
         </p>
-        <label id="tosignup" className="link-secondary">
-          Create new account
-        </label>
+        <Link to={"/signup"}>
+          {" "}
+          <label id="tosignup" className="link-secondary">
+            Create new account
+          </label>
+        </Link>
       </form>
     );
   }

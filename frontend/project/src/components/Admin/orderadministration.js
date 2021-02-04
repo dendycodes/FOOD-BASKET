@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./admin.css";
+import { Link } from "react-router-dom";
 
-import Modalorder from "./Modal/neworder";
-import Renamegroup from "./Modal/renamegroup";
 class Orderadmin extends Component {
   render() {
     return (
@@ -25,26 +24,27 @@ class Orderadmin extends Component {
             </svg>
             Delete Order
           </button>
-
-          <button
-            id="addbutton"
-            className="btn btn-secondary  m-1"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            data-bs-whatever="@mdo"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="25"
-              height="25"
-              fill="currentColor"
-              className="bi bi-plus"
-              viewBox="0 0 16 16"
+          <Link to={`/${this.props.orderid}`}>
+            <button
+              id="addbutton"
+              className="btn btn-secondary  m-1"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              data-bs-whatever="@mdo"
             >
-              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-            </svg>
-            New comment
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="25"
+                fill="currentColor"
+                className="bi bi-plus"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+              </svg>
+              New comment
+            </button>
+          </Link>
 
           <small id="time" className="text-muted">
             <p>
@@ -112,8 +112,6 @@ class Orderadmin extends Component {
             </div>
           </div>
         </div>
-        <Modalorder />
-        <Renamegroup />
       </div>
     );
   }

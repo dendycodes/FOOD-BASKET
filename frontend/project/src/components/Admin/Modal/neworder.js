@@ -1,9 +1,37 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
+import axios from "axios";
 class Modalorder extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      comment: "",
+    };
+  }
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  submitHandler = (e) => {
+    e.preventDefault();
+
+    let config = {
+      headers: {
+        Authorization: localStorage.getItem("FBIdToken"),
+      },
+    };
+
+    axios.post(
+      "https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api" +
+        this.props.location.pathname +
+        "/comment",
+      config
+    );
+  };
+
   render() {
+    const { comment } = this.state;
     return (
       <div
         className="modal fade"
@@ -34,6 +62,9 @@ class Modalorder extends Component {
                     Type your order here:
                   </label>
                   <textarea
+                    name="comment"
+                    value={comment}
+                    onChange={this.changeHandler}
                     className="form-control"
                     id="message-text"
                   ></textarea>

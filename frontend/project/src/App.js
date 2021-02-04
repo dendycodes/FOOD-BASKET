@@ -10,7 +10,7 @@ function App() {
   // = localStorage.getItem("token");
   const userInfo = localStorage.getItem("userInfo");
   var adminInfo = localStorage.getItem("adminInfo");
-  adminInfo = "dasda";
+  adminInfo = "dsdsdsa";
   if (adminInfo /*Chechking for session*/) {
     return (
       <div className="App">
