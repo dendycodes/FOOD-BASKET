@@ -2,8 +2,14 @@ import React, { Component } from "react";
 import "./navbar.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
+import { Link } from "react-router-dom";
 class Navbar extends Component {
   state = {};
+
+  logout() {
+    localStorage.clear();
+    window.location.reload();
+  }
 
   render() {
     return (
@@ -61,9 +67,13 @@ class Navbar extends Component {
                       {this.props.settings}
                     </label>
                   </li>
-                  <li>
-                    <label className="dropdown-item">{this.props.logout}</label>
-                  </li>
+                  <Link className="logout" to={"/"}>
+                    <li onClick={this.logout}>
+                      <label className="dropdown-item">
+                        {this.props.logout}
+                      </label>
+                    </li>
+                  </Link>
                 </ul>
               </li>
             </ul>

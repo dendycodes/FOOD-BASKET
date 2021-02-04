@@ -38,10 +38,10 @@ class LForm extends Component {
     axios(ops)
       .then((res) => {
         localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
-
-        console.log("post response: " + res.data);
-        console.log("post response: " + res.data.token);
+        localStorage.setItem("UserEmail", `${this.state.email}`);
         window.location.reload();
+        console.log("post response: " + this.state.email);
+        console.log("post response: " + res.data.token);
       })
       .catch((err) => {
         this.setState({

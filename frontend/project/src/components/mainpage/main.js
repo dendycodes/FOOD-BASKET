@@ -13,7 +13,7 @@ class Main extends Component {
         <Navbar
           id="mainnav"
           first="Today's Orders"
-          loged={this.props.user}
+          loged={localStorage.getItem("UserEmail")}
           settings="Settings"
           logout="Logout"
           list1="home"

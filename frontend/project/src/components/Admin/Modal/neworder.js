@@ -3,35 +3,53 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import axios from "axios";
 class Modalorder extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       comment: "",
+      errors: {},
     };
   }
+
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   submitHandler = (e) => {
     e.preventDefault();
+    let url = window.location.href;
+    let index = url.lastIndexOf("/");
+    let a = url.substring(index + 1);
+    const commentUrl = `https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/orders/${a}/comment`;
 
-    let config = {
-      headers: {
-        Authorization: localStorage.getItem("FBIdToken"),
-      },
+    console.log(commentUrl);
+    var commentData = {
+      comment: this.state.comment,
     };
 
-    axios.post(
-      "https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api" +
-        this.props.location.pathname +
-        "/comment",
-      config
-    );
+    const ops = {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      data: JSON.stringify(commentData),
+      url: commentUrl,
+    };
+
+    axios(ops)
+      .then((res) => {
+        console.log(res.data);
+        window.location.reload("localhost:3000");
+      })
+      .catch((err) => {
+        this.setState({
+          errors: err.response.data,
+        });
+      });
   };
 
   render() {
-    const { comment } = this.state;
+    const { comment, errors } = this.state;
+    // console.log("BTN " + document.querySelectorAll(".myBtn")[1].classList);
+
     return (
       <div
         className="modal fade"
@@ -55,19 +73,21 @@ class Modalorder extends Component {
               ></button>
             </div>
             <div className="modal-body">
-              <form>
+              <form onSubmit={this.submitHandler}>
                 <div className="mb-3"></div>
                 <div className="mb-3">
                   <label htmlFor="message-text" className="col-form-label">
                     Type your order here:
                   </label>
                   <textarea
+                    className="form-control"
+                    id="message-text"
                     name="comment"
                     value={comment}
                     onChange={this.changeHandler}
-                    className="form-control"
-                    id="message-text"
-                  ></textarea>
+                  />
+
+                  <>{errors.Comment}</>
                 </div>
               </form>
             </div>
@@ -79,7 +99,11 @@ class Modalorder extends Component {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-success">
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={this.submitHandler}
+              >
                 Add your order
               </button>
             </div>

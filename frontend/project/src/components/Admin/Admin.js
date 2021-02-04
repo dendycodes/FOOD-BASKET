@@ -8,6 +8,7 @@ import Updateuser from "./Modal/user-info-update.js";
 import axios from "axios";
 import Modalorder from "./Modal/neworder";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Loading from "./loading";
 
 import "./user.js";
 
@@ -96,13 +97,45 @@ class Admin extends Component {
   }
 
   render() {
+    let orders = this.state.orders ? (
+      this.state.orders.map((ord) => {
+        return (
+          <Orderadmin
+            orderid={ord.id}
+            key={ord.id}
+            orderName={ord.orderName}
+            hour={new Date(ord.requestedTime * 1000).getHours()}
+            minutes={new Date(ord.requestedTime * 1000).getMinutes()}
+          />
+        );
+      })
+    ) : (
+      <Loading />
+    );
+
+    let users = this.state.users ? (
+      this.state.users.map((user) => {
+        return (
+          <User
+            userid={user.userId}
+            key={user.userId}
+            username={user.username}
+            email={user.email}
+            img={user.imageUrl}
+          />
+        );
+      })
+    ) : (
+      <Loading />
+    );
+
     return (
       <Router>
         <div className="admin">
           <Navbar
             className="adminnav"
             first="Administration"
-            loged="USER"
+            loged={localStorage.getItem("UserEmail")}
             settings="Account settings"
             logout="Logout"
           />
@@ -168,15 +201,7 @@ class Admin extends Component {
                   data-bs-parent="#accordionExample"
                 >
                   <div className="accordion-body" id="accordion-body">
-                    {this.state.users.map((user) => (
-                      <User
-                        userid={user.userId}
-                        key={user.userId}
-                        username={user.username}
-                        email={user.email}
-                        img={user.imageUrl}
-                      />
-                    ))}
+                    {users}
                   </div>
                 </div>
 
@@ -187,17 +212,7 @@ class Admin extends Component {
                   data-bs-parent="#accordionExample"
                 >
                   <div className="accordion-body" id="accordion-body">
-                    {this.state.orders.map((order) => (
-                      <Orderadmin
-                        orderid={order.id}
-                        key={order.id}
-                        orderName={order.orderName}
-                        hour={new Date(order.requestedTime * 1000).getHours()}
-                        minutes={new Date(
-                          order.requestedTime * 1000
-                        ).getMinutes()}
-                      />
-                    ))}
+                    {orders}
                   </div>
                 </div>
               </div>

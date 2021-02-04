@@ -1,0 +1,37 @@
+.cmtPic {
+  width: 80px;
+  height: 80px;
+}
+.comments-container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(173, 173, 173);
+  margin: 0.1em 0;
+}
+.data-container {
+  display: flex;
+  width: 85%;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.username-date-container {
+  display: flex;
+}
+.comment-container {
+  /* text-align: left;
+  padding: 0 0.4em;
+  margin: auto 0;
+  height: 100%; */
+  font-size: 1.2rem;
+  bottom: -1px;
+  left: 0.4em;
+  overflow: auto;
+}
+
+.date-container {
+  font-size: 0.85rem;
+}
+.username {
+  margin: 0 0.4em;
+  font-weight: 700;
+}

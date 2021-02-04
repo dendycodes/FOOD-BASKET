@@ -13,9 +13,9 @@ class Login extends Component {
       <Router>
         <div className="login" id="lgn">
           <Navbar
-            first="User Login"
-            loged="Contacts"
-            settings="Help"
+            first="Login or Signup "
+            loged="Help"
+            settings="Forgot Password"
             list1="first"
             list2="second"
             link1="link1"

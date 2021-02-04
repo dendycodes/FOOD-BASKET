@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import "./main.css";
 import List from "./orders/list.js";
+import axios from "axios";
 class Orders extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupname: "",
+      orderName: "",
       time: "",
+      requestedTime: "",
     };
   }
 
@@ -16,20 +18,36 @@ class Orders extends Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-    console.log(JSON.stringify(this.state));
-    fetch("/", {
+
+    const orderUrl =
+      "https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/orders";
+    var orderData = {};
+    orderData = {
+      orderName: this.state.orderName,
+      requestedTime: this.state.requestedTime,
+    };
+    const ops = {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(this.state),
-    });
-    document.getElementById("groupname").value = null;
+      headers: { "content-type": "application/json" },
+      data: JSON.stringify(orderData),
+      url: orderUrl,
+    };
+    axios(ops)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
-    const { groupname, time } = this.state;
+    const { orderName, time } = this.state;
+    const date = new Date();
+    date.setHours(time.substring(0, 2));
+    date.setMinutes(time.substring(3));
+    this.state.requestedTime = Math.floor(new Date(date.getTime()) / 1000);
+
     return (
       <div id="ordr">
         <div className="accordion" id="accordionExample">
@@ -67,13 +85,13 @@ class Orders extends Component {
                 <form onSubmit={this.submitHandler}>
                   <input
                     id="groupname"
-                    name="groupname"
-                    value={groupname}
+                    name="orderName"
+                    value={orderName}
                     type="text"
                     className="form-control m-1"
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default"
-                    placeholder="Order name"
+                    placeholder="Group name"
                     onChange={this.changeHandler}
                     required
                   ></input>
@@ -92,7 +110,7 @@ class Orders extends Component {
                   />
 
                   <button type="submit" className="btn btn-danger w-100 m-1">
-                    Create order
+                    Create group
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
