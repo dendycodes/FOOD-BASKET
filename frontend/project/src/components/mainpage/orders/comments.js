@@ -31,7 +31,7 @@ class Comment extends Component {
             return (
               <div className="comments-container" key={c.id}>
                 {console.log(c.userImage)}
-                <img className="cmtPic" src={c.userImage} />
+                <img className="cmtPic" src={c.userImage} alt="userprofile" />
                 <div className="data-container">
                   <div className="username-date-container">
                     <p className="username">{c.username}</p>

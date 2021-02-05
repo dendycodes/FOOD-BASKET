@@ -5,8 +5,8 @@ class Loading extends Component {
   render() {
     return (
       <div className="loading">
-        <div class="spinner-border text-danger m-2 " role="status">
-          <span class="sr-only"></span>
+        <div className="spinner-border text-danger m-2 " role="status">
+          <span className="sr-only"></span>
         </div>
       </div>
     );

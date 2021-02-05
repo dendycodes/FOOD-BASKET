@@ -10,7 +10,7 @@ import Comment from "./comments";
 class Neworder extends Component {
   render() {
     const {
-      ord: { orderName, username, createdAt, requestedTime, id, counter },
+      ord: { orderName, /* counter  username ,createdAt,*/ requestedTime, id },
     } = this.props;
     console.log(this.props.match);
 

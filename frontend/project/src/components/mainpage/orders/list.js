@@ -3,7 +3,7 @@ import Neworder from "./order.js";
 
 import "./list.css";
 import axios from "axios";
-import { Link, BrowserRouter as Router } from "react-router-dom";
+
 import Loading from "../../Admin/loading";
 class List extends Component {
   state = {

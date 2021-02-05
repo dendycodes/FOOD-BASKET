@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./admin.css";
-import Comm from "./Comm";
+import CommList from "./CommList";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -52,6 +52,7 @@ class Orderadmin extends Component {
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
               data-bs-whatever="@mdo"
+              disabled={this.props.visibility}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +75,7 @@ class Orderadmin extends Component {
           </small>
         </div>
         <h6> {this.props.user}</h6>
-        <Comm id={this.props.orderid} />
+        <CommList id={this.props.orderid} />
       </div>
     );
   }

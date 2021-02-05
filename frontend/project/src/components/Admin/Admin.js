@@ -97,8 +97,13 @@ class Admin extends Component {
   }
 
   render() {
+    var visibility = true;
     let orders = this.state.orders ? (
       this.state.orders.map((ord) => {
+        console.log(ord.requestedTime + " " + Date.now() + "       ");
+        if (Date.now() > ord.requestedTime) {
+          visibility = false;
+        }
         return (
           <Orderadmin
             orderid={ord.id}
@@ -106,6 +111,7 @@ class Admin extends Component {
             orderName={ord.orderName}
             hour={new Date(ord.requestedTime * 1000).getHours()}
             minutes={new Date(ord.requestedTime * 1000).getMinutes()}
+            visibility={visibility}
           />
         );
       })
@@ -196,7 +202,7 @@ class Admin extends Component {
                 </h2>
                 <div
                   id="collapseOne"
-                  className="accordion-collapse collapse show"
+                  className="accordion-collapse collapse show "
                   aria-labelledby="headingOne"
                   data-bs-parent="#accordionExample"
                 >

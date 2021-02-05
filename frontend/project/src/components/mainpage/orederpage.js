@@ -28,7 +28,10 @@ class Orders extends Component {
     };
     const ops = {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        Authorization: localStorage.getItem("FBIdToken"),
+      },
       data: JSON.stringify(orderData),
       url: orderUrl,
     };
