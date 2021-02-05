@@ -1,8 +1,9 @@
 const functions = require("firebase-functions");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const swaggerUi = require("swagger-ui-express"),
-  swaggerDocument = require("../swagger.json");
+  swaggerDocument = require("./swagger.json");
 const {
   getComments,
   postOneComment,
@@ -23,11 +24,14 @@ const {
   uploadImage,
   deleteUser,
   getUsers,
+  getOneUser,
 } = require("./handlers/users");
 const FBAuth = require("./util/fbAuth");
 const { db } = require("./util/admin");
 app.use(express.json());
+app.use(cors());
 
+app.get("/user/:username", getOneUser);
 app.get("/getOrders", getAllOrders);
 app.get("/orders/:orderId", getOrder);
 app.get("/getComments", getComments);
@@ -35,9 +39,9 @@ app.get("/users", FBAuth, getUsers);
 
 app.post("/signup", signup);
 app.post("/login", login);
-app.post("/orders/:orderId/comment", FBAuth, commentOnOrder);
+app.post("/orders/:orderId/comment", commentOnOrder);
 app.post("/comments", FBAuth, postOneComment);
-app.post("/orders", FBAuth, postOrder);
+app.post("/orders", postOrder);
 app.post("/user/image", FBAuth, uploadImage);
 
 app.put("/order/:orderId", FBAuth, editOrder);
