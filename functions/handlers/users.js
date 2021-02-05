@@ -78,7 +78,10 @@ exports.login = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      if (err.code === "auth/wrong-password") {
+      if (
+        err.code === "auth/wrong-password" ||
+        err.code === "auth/user-not-found"
+      ) {
         return res
           .status(403)
           .json({ general: "Wrong credentials, please try again." });
@@ -108,6 +111,26 @@ exports.getUsers = (req, res) => {
     });
 };
 
+exports.getOneUser = (req, res) => {
+  let userData = {};
+  console.log(req.params.username);
+  db.doc(`/Users/${req.params.username}`)
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      userData = doc.data();
+      userData.userId = doc.id;
+      return res.json({ id: doc.id, ...userData });
+    })
+
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ errоr: err.code });
+    });
+};
 exports.uploadImage = (req, res) => {
   const BusBoy = require("busboy");
   const path = require("path");
@@ -166,9 +189,7 @@ exports.deleteUser = (req, res) => {
       if (doc.data().username !== req.user.username) {
         if (req.user.username === "admin") {
           return document.delete();
-        } else {
-          return res.status(403).json({ error: "Unauthorized" });
-        }
+        } else return res.status(403).json({ error: "Unauthorized" });
       } else {
         return document.delete();
       }
