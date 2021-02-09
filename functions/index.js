@@ -35,13 +35,13 @@ app.get("/user/:username", getOneUser);
 app.get("/getOrders", getAllOrders);
 app.get("/orders/:orderId", getOrder);
 app.get("/getComments", getComments);
-app.get("/users", FBAuth, getUsers);
+app.get("/users", getUsers);
 
 app.post("/signup", signup);
 app.post("/login", login);
-app.post("/orders/:orderId/comment", commentOnOrder);
+app.post("/orders/:orderId/comment", FBAuth, commentOnOrder);
 app.post("/comments", FBAuth, postOneComment);
-app.post("/orders", postOrder);
+app.post("/orders", FBAuth, postOrder);
 app.post("/user/image", FBAuth, uploadImage);
 
 app.put("/order/:orderId", FBAuth, editOrder);
@@ -64,13 +64,13 @@ exports.onUserImageChange = functions
     if (change.before.data().imageUrl !== change.after.data().imageUrl) {
       const batch = db.batch();
       return db
-        .collection("orders")
+        .collection("comments")
         .where("username", "==", change.before.data().username)
         .get()
         .then((data) => {
           data.forEach((doc) => {
-            const order = db.doc(`/orders/${doc.id}`);
-            batch.update(order, { userImage: change.after.data().imageUrl });
+            const comments = db.doc(`/comments/${doc.id}`);
+            batch.update(comments, { userImage: change.after.data().imageUrl });
           });
           return batch.commit();
         });
