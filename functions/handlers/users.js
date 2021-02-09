@@ -94,14 +94,14 @@ exports.getUsers = (req, res) => {
     .orderBy("createdAt", "desc")
     .get()
     .then((data) => {
-      console.log(req.user.username);
-      if (req.user.username === "admin") {
-        let user = [];
-        data.forEach((doc) => {
-          user.push(doc.data());
-        });
-        return res.json(user);
-      } else return res.status(403).json({ error: "Unauthorized" });
+      // console.log(req.user.username);
+      // if (req.user.username === "admin") {
+      let user = [];
+      data.forEach((doc) => {
+        user.push(doc.data());
+      });
+      return res.json(user);
+      // } else return res.status(403).json({ error: "Unauthorized" });
     })
     .catch((err) => {
       console.error(err);
