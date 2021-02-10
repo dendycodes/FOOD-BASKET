@@ -12,14 +12,6 @@ Basic functionalities:
 
 Тhe things you need to do to start the project:
 
-First start the backend server
-/
-/
-/
-/
-/
-/
-Then start the frontend server
 1) git clone git@github.com:denizmemduev/FOOD-BASKET.git
 2) cd project
 3) npm install 
