@@ -32,6 +32,7 @@ class CommList extends Component {
       return (
         <>
           {this.state.comments.orderData.comments.map((c) => {
+            console.log(c);
             return (
               <Comment
                 key={c.id}
@@ -39,6 +40,8 @@ class CommList extends Component {
                 username={c.username}
                 value={c.comment}
                 commentId={c.id}
+                hour={new Date(c.createdAt._seconds * 1000).getHours()}
+                minutes={new Date(c.createdAt._nanoseconds * 1000).getMinutes()}
               />
             );
           })}

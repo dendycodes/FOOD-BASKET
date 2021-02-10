@@ -29,7 +29,10 @@ class Modalorder extends Component {
 
     const ops = {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        Authorization: localStorage.getItem("FBIdToken"),
+      },
       data: JSON.stringify(commentData),
       url: commentUrl,
     };
@@ -94,17 +97,17 @@ class Modalorder extends Component {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-danger"
                 data-bs-dismiss="modal"
               >
                 Close
               </button>
               <button
                 type="button"
-                className="btn btn-success"
+                className="btn btn-secondary"
                 onClick={this.submitHandler}
               >
-                Add your order
+                Add your comment
               </button>
             </div>
           </div>

@@ -5,24 +5,28 @@ import "./admin.css";
 import CommList from "./CommList";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Admin from "./Admin";
 
 class Orderadmin extends Component {
-  state = {
-    orders: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      orders: null,
+    };
+  }
 
-  componentDidMount() {
+  deleteOrder(orderid) {
+    let config = {
+      headers: {
+        Authorization: localStorage.getItem("FBIdToken"),
+      },
+    };
+
+    const url = `https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/order/${orderid}`;
+
     axios
-      .get(
-        "https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/getOrders"
-      )
-      .then((res) => {
-        console.log("aaaaa");
-        console.log(res.data);
-        this.setState({
-          orders: res.data,
-        });
-      })
+      .delete(url, config)
+
       .catch((err) => console.log(err));
   }
 
@@ -30,9 +34,16 @@ class Orderadmin extends Component {
     return (
       <div className="adminordr">
         <div className="hdr" id="adminhdr">
-          <h6 id="titl">Order name: {this.props.orderName} </h6>
+          <h6 id="titl">
+            Order name: {this.props.orderName} &nbsp; | &nbsp; order by:{" "}
+            {this.props.created}{" "}
+          </h6>
 
-          <button id="addbutton" className="btn btn-danger m-1 ">
+          <button
+            id="addbutton"
+            className="btn btn-danger m-1 "
+            onClick={() => this.deleteOrder(this.props.orderid)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -45,7 +56,7 @@ class Orderadmin extends Component {
             </svg>
             Delete Order
           </button>
-          <Link to={`/${this.props.orderid}`}>
+          <Link to={`/orders/${this.props.orderid}`}>
             <button
               id="addbutton"
               className="btn btn-secondary  m-1"

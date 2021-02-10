@@ -2,13 +2,67 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./admin.css";
-import { Link } from "react-router-dom";
+import Updateuser from "./Modal/user-info-update";
 import "./Admin";
-
+import axios from "axios";
 class User extends Component {
-  state = {};
+  constructor() {
+    super();
+    this.state = {
+      user: "",
+      email: "",
+      shown: false,
+    };
+  }
+
+  getUser(username) {
+    this.setState({ shown: true });
+    let config = {
+      headers: {
+        Authorization: localStorage.getItem("FBIdToken"),
+      },
+    };
+
+    axios
+      .get(
+        `https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/user/${username}`,
+        config
+      )
+
+      .then((res) => {
+        this.setState({ user: res.data.username, email: res.data.email });
+        console.log(this.state.user);
+        console.log(this.state.email);
+      })
+
+      .catch((err) => console.log(err));
+  }
+
+  deleteUser(userid) {
+    let config = {
+      headers: {
+        Authorization: localStorage.getItem("FBIdToken"),
+      },
+    };
+
+    const url = `https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/user/${userid}`;
+
+    axios
+      .delete(url, config)
+
+      .catch((err) => console.log(err));
+  }
 
   render() {
+    let modalPage;
+    {
+      this.state.shown
+        ? (modalPage = (
+            <Updateuser usernamee={this.state.user} emaill={this.state.email} />
+          ))
+        : (modalPage = <Updateuser />);
+    }
+
     return (
       <div className="User">
         <img
@@ -25,30 +79,34 @@ class User extends Component {
           </h6>
         </div>
         <div className="actions">
-          <Link to={`/ ${this.props.userid}`}>
-            <button
-              key={this.props.userid}
-              id="usr"
-              type="button"
-              className="btn btn-secondary m-1 index"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal2"
-              data-bs-whatever="@mdo"
+          <button
+            onClick={() => this.getUser(this.props.username)}
+            key={this.props.userid}
+            id="usr"
+            type="button"
+            className="btn btn-secondary m-1 index"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal2"
+            data-bs-whatever="@mdo"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="25"
+              fill="currentColor"
+              className="bi bi-pencil-fill"
+              viewBox="0 0 16 16"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="25"
-                fill="currentColor"
-                className="bi bi-pencil-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
-              </svg>{" "}
-              Update
-            </button>
-          </Link>
-          <button type="button" className="btn btn-danger m-1">
+              <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+            </svg>{" "}
+            Update
+          </button>
+
+          <button
+            onClick={() => this.deleteUser(this.props.username)}
+            type="button"
+            className="btn btn-danger m-1"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -62,6 +120,7 @@ class User extends Component {
             Delete User
           </button>
         </div>
+        {modalPage}
       </div>
     );
   }

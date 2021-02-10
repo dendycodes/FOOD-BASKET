@@ -31,15 +31,23 @@ class Comment extends Component {
               ></img>{" "}
               {this.props.username}
             </label>
+            <div className={"time"}>
+              <i>
+                {" "}
+                {"posted at: "}
+                {this.props.hour}:{this.props.minutes}
+              </i>
+            </div>
           </div>
+
           <div id="box2">
             <textarea
               disabled
               className="ds m-1"
               value={this.props.value}
             ></textarea>
-
             <button
+              id="x"
               onClick={() => this.deleteComment(this.props.commentId)}
               type="button"
               className="btn btn-danger m-1 sze "

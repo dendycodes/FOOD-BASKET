@@ -3,9 +3,22 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 
 class Updateuser extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: "",
+      username: "",
+    };
+  }
+
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
   render() {
+    const { email, username } = this.state;
     return (
       <div
+        onPlay={() => this.getUser()}
         className="modal fade"
         id="exampleModal2"
         tabIndex="-1"
@@ -40,6 +53,10 @@ class Updateuser extends Component {
                       </span>
                     </div>
                     <input
+                      placeholder={this.props.usernamee}
+                      name="username"
+                      onChange={this.changeHandler}
+                      value={username}
                       type="text"
                       className="form-control"
                       aria-label="Default"
@@ -56,6 +73,10 @@ class Updateuser extends Component {
                       </span>
                     </div>
                     <input
+                      placeholder={this.props.emaill}
+                      name="email"
+                      value={email}
+                      onChange={this.changeHandler}
                       type="text"
                       className="form-control"
                       aria-label="Default"

@@ -3,6 +3,7 @@ import "./navbar.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import { Link } from "react-router-dom";
+
 class Navbar extends Component {
   state = {};
 
@@ -68,7 +69,7 @@ class Navbar extends Component {
                     </label>
                   </li>
                   <Link className="logout" to={"/"}>
-                    <li onClick={this.logout}>
+                    <li onClick={() => this.logout()}>
                       <label className="dropdown-item">
                         {this.props.logout}
                       </label>
