@@ -10,7 +10,7 @@ exports.signup = (req, res) => {
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
     role: "user",
-    username: req.body.username,
+    username: req.body.username.trim(),
   };
   const { valid, errors } = validateSignupData(newUser);
   if (!valid) return res.status(400).json(errors);
