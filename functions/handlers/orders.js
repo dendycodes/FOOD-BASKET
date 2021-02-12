@@ -2,12 +2,24 @@ const { db } = require("../util/admin");
 
 exports.getAllOrders = (req, res) => {
   db.collection("orders")
-    .orderBy("createdAt", "desc")
+    .orderBy("requestedTime", "desc")
     .get()
     .then((data) => {
+      let currentDate = Math.floor(new Date() / 1000);
+
       let order = [];
       data.forEach((doc) => {
-        order.push({ ...doc.data(), id: doc.id });
+        if (
+          new Date(doc.data().createdAt._seconds * 1000).getDate() ===
+            new Date(currentDate * 1000).getDate() &&
+          new Date(doc.data().createdAt._seconds * 1000).getMonth() ===
+            new Date(currentDate * 1000).getMonth() &&
+          new Date(doc.data().createdAt._seconds * 1000).getFullYear() ===
+            new Date(currentDate * 1000).getFullYear()
+        ) {
+          console.log("SUCCESS");
+          order.push({ ...doc.data(), id: doc.id });
+        }
       });
       return res.json(order);
     })
@@ -26,7 +38,7 @@ exports.postOrder = (req, res) => {
 
   const newOrder = {
     orderName: req.body.orderName,
-    // username: req.user.username,
+    username: req.user.username,
     createdAt: new Date(),
     requestedTime: req.body.requestedTime,
   };
@@ -62,7 +74,7 @@ exports.getOrder = (req, res) => {
     .then((data) => {
       orderData.comments = [];
       data.forEach((doc) => {
-        orderData.comments.push(doc.data());
+        orderData.comments.push({ id: doc.id, ...doc.data() });
       });
       return res.json({ orderData });
     })
@@ -94,13 +106,13 @@ exports.commentOnOrder = (req, res) => {
       let rTime = new Date(doc.data().requestedTime * 1000);
 
       if (currentDate.getHours() > rTime.getHours()) {
-        return res.json({ error: "The order is expired!" });
+        return res.status(400).json({ error: "The order is expired!" });
       } else {
         if (
           currentDate.getHours() === rTime.getHours() &&
           currentDate.getMinutes() > rTime.getMinutes()
         ) {
-          return res.json({ error: "The order is expired!" });
+          return res.status(400).json({ error: "The order is expired!" });
         } else {
           db.collection("comments").add(newComment);
           return res.status(201);
@@ -121,9 +133,33 @@ exports.deleteOrder = (req, res) => {
   document
     .get()
     .then((doc) => {
+      const orderRequestedTime = new Date(doc.data().requestedTime * 1000);
+      const currentTime = new Date();
+      console.log(orderRequestedTime.getDate());
+      console.log(currentTime.getDate());
+      console.log(orderRequestedTime.getHours());
+      console.log(currentTime.getHours());
+      console.log(orderRequestedTime.getMinutes());
+      console.log(currentTime.getMinutes());
+      if (
+        orderRequestedTime.getDate() !== currentTime.getDate() ||
+        orderRequestedTime.getMonth() !== currentTime.getMonth() ||
+        orderRequestedTime.getFullYear() !== currentTime.getFullYear()
+      ) {
+        return res.status(404).json({ error: "Order is finished" });
+      }
+      if (orderRequestedTime.getHours() === currentTime.getHours()) {
+        if (orderRequestedTime.getMinutes() <= currentTime.getMinutes()) {
+          return res.status(404).json({ error: "Order is finished" });
+        }
+      } else if (orderRequestedTime.getHours() < currentTime.getHours()) {
+        return res.status(404).json({ error: "Order is finished" });
+      }
+
       if (!doc.exists) {
         return res.status(404).json({ error: "Order not found" });
       }
+
       if (doc.data().username !== req.user.username) {
         if (req.user.username === "admin") {
           return document.delete();
