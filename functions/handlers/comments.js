@@ -27,7 +27,6 @@ exports.postOneComment = (req, res) => {
   const newComment = {
     comment: req.body.comment,
     createdAt: new Date(),
-
     username: req.user.username,
   };
 
@@ -88,6 +87,8 @@ exports.deleteComment = (req, res) => {
   });
 };
 
+const a = () => {};
+
 exports.editComment = (req, res) => {
   const document = db.doc(`/comments/${req.params.commentId}`);
   document.get().then((doc) => {
@@ -98,21 +99,41 @@ exports.editComment = (req, res) => {
       return res.status(400).json({ Comment: "Comment must not be empty." });
     }
     const newComment = req.body;
+    db.doc(`/orders/${doc.data().orderId}`)
+      .get()
+      .then((element) => {
+        const requestedTime = new Date(element.data().requestedTime * 1000);
+        const currentTime = new Date();
 
-    if (doc.data().username !== req.user.username) {
-      if (req.user.username === "admin") {
-        document.update(newComment);
-        return res.json({
-          message: `document ${req.params.commentId} edited successfully`,
-        });
-      }
-      return res.status(403).json({ error: "Unauthorized" });
-    }
-    document
-      .update(newComment)
-      .then((el) => {
-        res.json({
-          message: `document ${req.params.commentId} edited successfully`,
+        if (
+          requestedTime.getDate() !== currentTime.getDate() ||
+          requestedTime.getMonth() !== currentTime.getMonth() ||
+          requestedTime.getFullYear() !== currentTime.getFullYear()
+        ) {
+          return res.status(404).json({ error: "Order is finished" });
+        }
+        if (requestedTime.getHours() === currentTime.getHours()) {
+          if (requestedTime.getMinutes() <= currentTime.getMinutes()) {
+            return res.status(404).json({ error: "Order is finished" });
+          }
+        } else if (requestedTime.getHours() < currentTime.getHours()) {
+          return res.status(404).json({ error: "Order is finished" });
+        }
+
+        if (doc.data().username !== req.user.username) {
+          if (req.user.username === "admin") {
+            document.update(newComment);
+            return res.json({
+              message: `document ${req.params.commentId} edited successfully`,
+            });
+          }
+          return res.status(403).json({ error: "Unauthorized" });
+        }
+
+        document.update(newComment).then((el) => {
+          res.json({
+            message: `document ${req.params.commentId} edited successfully`,
+          });
         });
       })
       .catch((err) => {
