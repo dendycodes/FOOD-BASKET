@@ -47,21 +47,17 @@ class User extends Component {
 
     const url = `https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/user/${userid}`;
 
-    axios
-      .delete(url, config)
-
-      .catch((err) => console.log(err));
+    axios.delete(url, config).catch((err) => console.log(err));
   }
 
   render() {
     let modalPage;
-    {
-      this.state.shown
-        ? (modalPage = (
-            <Updateuser usernamee={this.state.user} emaill={this.state.email} />
-          ))
-        : (modalPage = <Updateuser />);
-    }
+
+    this.state.shown
+      ? (modalPage = (
+          <Updateuser usernamee={this.state.user} emaill={this.state.email} />
+        ))
+      : (modalPage = <Updateuser />);
 
     return (
       <div className="User">

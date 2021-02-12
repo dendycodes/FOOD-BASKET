@@ -40,13 +40,14 @@ class Modalorder extends Component {
     axios(ops)
       .then((res) => {
         console.log(res.data);
-        window.location.reload();
       })
       .catch((err) => {
         this.setState({
           errors: err.response.data,
         });
       });
+
+    document.getElementById("message-text").value = "";
   };
 
   render() {
@@ -106,6 +107,7 @@ class Modalorder extends Component {
                 type="button"
                 className="btn btn-secondary"
                 onClick={this.submitHandler}
+                data-bs-dismiss="modal"
               >
                 Add your comment
               </button>

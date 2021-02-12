@@ -5,7 +5,6 @@ import "./admin.css";
 import CommList from "./CommList";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Admin from "./Admin";
 
 class Orderadmin extends Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class Orderadmin extends Component {
 
   render() {
     return (
-      <div className="adminordr">
+      <div onMouseOver={this.props.refreshorders} className="adminordr">
         <div className="hdr" id="adminhdr">
           <h6 id="titl">
             Order name: {this.props.orderName} &nbsp; | &nbsp; order by:{" "}
@@ -40,6 +39,7 @@ class Orderadmin extends Component {
           </h6>
 
           <button
+            disabled={this.props.visibility}
             id="addbutton"
             className="btn btn-danger m-1 "
             onClick={() => this.deleteOrder(this.props.orderid)}
@@ -86,7 +86,7 @@ class Orderadmin extends Component {
           </small>
         </div>
         <h6> {this.props.user}</h6>
-        <CommList id={this.props.orderid} />
+        <CommList id={this.props.orderid} visibility={this.props.visibility} />
       </div>
     );
   }

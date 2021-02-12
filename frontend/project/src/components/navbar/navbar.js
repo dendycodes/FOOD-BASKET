@@ -68,13 +68,14 @@ class Navbar extends Component {
                       {this.props.settings}
                     </label>
                   </li>
-                  <Link className="logout" to={"/"}>
-                    <li onClick={() => this.logout()}>
+
+                  <li onClick={() => this.logout()}>
+                    <Link className="logout" to={"/"}>
                       <label className="dropdown-item">
                         {this.props.logout}
                       </label>
-                    </li>
-                  </Link>
+                    </Link>
+                  </li>
                 </ul>
               </li>
             </ul>

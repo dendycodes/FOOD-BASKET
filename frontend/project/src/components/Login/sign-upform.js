@@ -40,6 +40,8 @@ class SForm extends Component {
     axios(ops)
       .then((res) => {
         localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
+        localStorage.setItem("UserEmail", `${this.state.email}`);
+        window.location.reload();
         console.log("post response: " + res.username);
       })
       .catch((err) => {

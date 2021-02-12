@@ -6,8 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 
 import axios from "axios";
-import Modalorder from "./Modal/neworder";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import Loading from "./loading";
 
 import "./user.js";
@@ -24,7 +23,7 @@ class Admin extends Component {
     };
   }
 
-  Orders() {
+  Orders = () => {
     let config = {
       headers: {
         Authorization: localStorage.getItem("FBIdToken"),
@@ -38,14 +37,13 @@ class Admin extends Component {
       )
 
       .then((res) => {
-        console.log(res.data);
         this.setState({
           orders: res.data,
         });
       })
 
       .catch((err) => console.log(err));
-  }
+  };
 
   Comments() {
     let config = {
@@ -61,7 +59,6 @@ class Admin extends Component {
       )
 
       .then((res) => {
-        console.log(res.data);
         this.setState({
           comments: res.data,
         });
@@ -70,7 +67,7 @@ class Admin extends Component {
       .catch((err) => console.log(err));
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     let config = {
       headers: {
         Authorization: localStorage.getItem("FBIdToken"),
@@ -84,32 +81,27 @@ class Admin extends Component {
       )
 
       .then((res) => {
-        console.log(res.data);
         this.setState({
           users: res.data,
         });
       })
 
       .catch((err) => console.log(err));
-
     this.Orders();
     this.Comments();
-  }
+  };
 
   render() {
-    console.log(localStorage);
     const date = new Date();
     var visibility = false;
     let orders = this.state.orders ? (
       this.state.orders.map((ord) => {
-        console.log(
-          ord.requestedTime + " " + Math.floor(new Date(date.getTime()) / 1000)
-        );
         if (Math.floor(new Date(date.getTime() / 1000)) >= ord.requestedTime) {
           visibility = true;
         }
         return (
           <Orderadmin
+            refreshorders={this.Orders}
             orderid={ord.id}
             key={ord.id}
             orderName={ord.orderName}
@@ -128,6 +120,7 @@ class Admin extends Component {
       this.state.users.map((user) => {
         return (
           <User
+            refresh={this.componentDidMount}
             userid={user.userId}
             key={user.userId}
             username={user.username}

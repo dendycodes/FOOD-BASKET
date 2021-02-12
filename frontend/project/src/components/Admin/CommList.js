@@ -12,7 +12,7 @@ class CommList extends Component {
     comments: null,
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
     const commentUrl = `https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/orders/${this.props.id}`;
 
     axios
@@ -21,27 +21,30 @@ class CommList extends Component {
         this.setState({
           comments: res.data,
         });
+        console.log("inloop");
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   render() {
     if (this.state.comments !== null) {
       return (
         <>
           {this.state.comments.orderData.comments.map((c) => {
-            console.log(c);
             return (
               <Comment
+                visibility={this.props.visibility}
+                refresh={this.componentDidMount}
                 key={c.id}
                 userImage={c.userImage}
                 username={c.username}
                 value={c.comment}
                 commentId={c.id}
-                hour={new Date(c.createdAt._seconds * 1000).getHours()}
-                minutes={new Date(c.createdAt._nanoseconds * 1000).getMinutes()}
+                hour={new Date(
+                  c.createdAt._seconds * 1000
+                ).toLocaleTimeString()}
               />
             );
           })}

@@ -12,7 +12,7 @@ function App() {
   // = localStorage.getItem("token");
   const userInfo = localStorage.getItem("userInfo");
   var adminInfo = localStorage.getItem("adminInfo");
-  adminInfo = "df";
+  adminInfo = "dsd";
   if (adminInfo /*Chechking for session*/) {
     return (
       <Router>
@@ -40,7 +40,7 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <Login />
+        <Route component={Login} />
       </div>
     </Router>
   );

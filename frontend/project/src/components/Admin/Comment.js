@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class Comment extends Component {
-  deleteComment(id) {
+  deleteComment = (id) => {
     let config = {
       headers: {
         Authorization: localStorage.getItem("FBIdToken"),
@@ -14,12 +14,12 @@ class Comment extends Component {
       .delete(url, config)
 
       .catch((err) => console.log(err));
-  }
+  };
 
   state = {};
   render() {
     return (
-      <div className="list-group w-100 p-1 ">
+      <div onMouseOver={this.props.refresh} className="list-group w-100 p-1 ">
         <div className="list-group-item list-group-item-action flex-column align-items-start ">
           <div id="box" className="d-flex  justify-content-between  p-2">
             <label id="h6" className="mb-1">
@@ -27,16 +27,13 @@ class Comment extends Component {
               <img
                 className="small-pic"
                 src={this.props.userImage}
+                onClick={this.props.refresh}
                 alt="userphoto"
               ></img>{" "}
               {this.props.username}
             </label>
             <div className={"time"}>
-              <i>
-                {" "}
-                {"posted at: "}
-                {this.props.hour}:{this.props.minutes}
-              </i>
+              <i> {this.props.hour}</i>
             </div>
           </div>
 
@@ -47,6 +44,7 @@ class Comment extends Component {
               value={this.props.value}
             ></textarea>
             <button
+              disabled={this.props.visibility}
               id="x"
               onClick={() => this.deleteComment(this.props.commentId)}
               type="button"
