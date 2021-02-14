@@ -110,7 +110,7 @@ exports.commentOnOrder = (req, res) => {
       } else {
         if (
           currentDate.getHours() === rTime.getHours() &&
-          currentDate.getMinutes() > rTime.getMinutes()
+          currentDate.getMinutes() >= rTime.getMinutes()
         ) {
           return res.status(400).json({ error: "The order is expired!" });
         } else {
@@ -135,12 +135,6 @@ exports.deleteOrder = (req, res) => {
     .then((doc) => {
       const orderRequestedTime = new Date(doc.data().requestedTime * 1000);
       const currentTime = new Date();
-      console.log(orderRequestedTime.getDate());
-      console.log(currentTime.getDate());
-      console.log(orderRequestedTime.getHours());
-      console.log(currentTime.getHours());
-      console.log(orderRequestedTime.getMinutes());
-      console.log(currentTime.getMinutes());
       if (
         orderRequestedTime.getDate() !== currentTime.getDate() ||
         orderRequestedTime.getMonth() !== currentTime.getMonth() ||
