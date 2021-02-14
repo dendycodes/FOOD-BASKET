@@ -64,7 +64,7 @@ exports.deleteComment = (req, res) => {
         if (
           rTime.getHours() > currentDate.getHours() ||
           (rTime.getHours() === currentDate.getHours() &&
-            rTime.getMinutes() >= currentDate.getMinutes())
+            rTime.getMinutes() > currentDate.getMinutes())
         ) {
           if (doc.data().username !== req.user.username) {
             return res.status(403).json({ error: "Unauthorized" });
@@ -75,7 +75,7 @@ exports.deleteComment = (req, res) => {
         } else if (
           rTime.getHours() < currentDate.getHours() ||
           (rTime.getHours() === currentDate.getHours() &&
-            rTime.getMinutes() < currentDate.getMinutes())
+            rTime.getMinutes() <= currentDate.getMinutes())
         ) {
           return res.status(404).json({ error: "Order is finished" });
         }
