@@ -232,3 +232,8 @@ b {
 textarea {
   border-radius: 10px;
 }
+
+.ordErr {
+  color: red;
+  font-size: 0.8rem;
+}
