@@ -91,7 +91,7 @@ class Modalorder extends Component {
                     onChange={this.changeHandler}
                   />
 
-                  <>{errors.Comment}</>
+              <div className="ordErr">{errors.Comment}</div>
                 </div>
               </form>
             </div>
