@@ -134,6 +134,7 @@ class Neworder extends Component {
             <Router>
               <Link to={`/${id}`}>
                 <button
+                  disabled={this.props.visibility}
                   id="addbutton"
                   className="btn btn-danger"
                   data-bs-toggle="modal"
