@@ -14,6 +14,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 class EditOrders extends Component {
   state = {
@@ -21,6 +22,7 @@ class EditOrders extends Component {
     newOrder: this.props.orderName,
     time: "",
     requestedTime: this.props.requestedTime,
+    errors: {},
   };
 
   componentDidMount() {
@@ -77,7 +79,7 @@ class EditOrders extends Component {
         window.location.reload("localhost:3000");
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response) this.setState({ errors: err.response.data });
       });
   };
 
@@ -130,6 +132,11 @@ class EditOrders extends Component {
                 required
               />
             </form>
+            <div className="orderErrDel">
+              {this.state.errors.error === "Unauthorized"
+                ? "You don't have access to this order"
+                : ""}
+            </div>
           </DialogContent>
           <DialogActions className="dialogBtn">
             <Button onClick={this.handleClose} color="primary">
