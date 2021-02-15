@@ -20,7 +20,6 @@ class LForm extends Component {
   };
   submitHandler = (e) => {
     e.preventDefault();
-    console.log(this.state);
 
     const loginUrl =
       "https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/login";
@@ -39,9 +38,11 @@ class LForm extends Component {
       .then((res) => {
         localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
         localStorage.setItem("UserEmail", `${this.state.email}`);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${res.data.token}`;
+
         window.location.reload();
-        console.log("post response: " + this.state.email);
-        console.log("post response: " + res.data.token);
       })
       .catch((err) => {
         this.setState({
@@ -81,7 +82,7 @@ class LForm extends Component {
             onChange={this.changeHandler}
           ></input>
         </div>
-        <p>{errors.email}</p>
+        <p className="login-errors">{errors.email}</p>
         <div className="input-group flex-nowrap m-2">
           <span className="input-group-text" id="addon-wrapping">
             <svg
@@ -107,7 +108,7 @@ class LForm extends Component {
             onChange={this.changeHandler}
           ></input>
         </div>
-        <p>{errors.password}</p>
+        <p className="login-errors">{errors.password}</p>
 
         <button
           type="submit"
@@ -116,7 +117,7 @@ class LForm extends Component {
         >
           Login
         </button>
-        <p>
+        <p className="login-errors">
           {errors.error}
           {errors.general}
         </p>

@@ -1,12 +1,15 @@
 .cmtPic {
   width: 80px;
   height: 80px;
+  object-fit: cover;
 }
 .comments-container {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid rgb(173, 173, 173);
   margin: 0.1em 0;
+  position: relative;
+  padding: 1em 0;
 }
 .data-container {
   display: flex;
@@ -18,14 +21,15 @@
   display: flex;
 }
 .comment-container {
-  /* text-align: left;
+  text-align: left;
   padding: 0 0.4em;
   margin: auto 0;
-  height: 100%; */
+  height: 100%;
   font-size: 1.2rem;
   bottom: -1px;
   left: 0.4em;
   overflow: auto;
+  width: 90%;
 }
 
 .date-container {
@@ -34,4 +38,43 @@
 .username {
   margin: 0 0.4em;
   font-weight: 700;
+}
+#delBtn {
+  display: none;
+  position: absolute;
+  right: 1px;
+  top: 1px;
+}
+
+#editBtn {
+  display: none;
+  position: absolute;
+  right: 40px;
+  top: 1px;
+}
+.comments-container:hover #delBtn {
+  display: inline;
+  color: grey;
+  outline: none;
+}
+.comments-container:hover #editBtn {
+  display: inline;
+  color: blue;
+  outline: none;
+}
+
+.orderErr {
+  font-size: 0.8rem;
+  color: red;
+  margin: 0;
+  text-align: left;
+}
+
+.orderErrDel {
+  font-size: 0.8rem;
+  color: red;
+  margin: 0;
+}
+.dialogBtn :hover {
+  outline: none;
 }

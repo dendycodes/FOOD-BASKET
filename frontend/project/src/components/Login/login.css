@@ -17,3 +17,7 @@
 .input-group {
   max-width: 400px;
 }
+.login-errors {
+  font-size: 0.8rem;
+  color: red;
+}

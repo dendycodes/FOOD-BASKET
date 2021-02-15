@@ -15,8 +15,6 @@ class List extends Component {
         "https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/getOrders"
       )
       .then((res) => {
-        console.log("aaaaa");
-        console.log(res.data);
         this.setState({
           orders: res.data,
         });
@@ -25,9 +23,16 @@ class List extends Component {
   }
 
   render() {
+    const date = new Date();
+    var visibility = false;
+
     let ordersMarkup = this.state.orders ? (
       this.state.orders.map((ord) => {
-        return <Neworder key={ord.id} ord={ord} />;
+        if (Math.floor(new Date(date.getTime() / 1000)) >= ord.requestedTime) {
+          visibility = true;
+        }
+
+        return <Neworder key={ord.id} ord={ord} visibility={visibility} />;
       })
     ) : (
       <Loading />
@@ -48,13 +53,7 @@ class List extends Component {
             <path d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
           </svg>
         </button>
-        {/* {this.state.orders.map((order) => (
-          <Neworder
-          group={order.name}
-          user={order.user}
-          comment={order.comment}
-          />
-        ))} */}
+
         <div>{ordersMarkup}</div>
       </div>
     );

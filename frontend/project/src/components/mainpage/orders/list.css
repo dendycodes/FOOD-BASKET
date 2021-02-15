@@ -42,3 +42,59 @@ h6 {
 hr {
   margin: 5px;
 }
+
+.order-created-by-user {
+  font-size: 0.6rem;
+}
+
+.order-created-by-user span {
+  font-size: 0.85rem;
+}
+
+.group-name-and-time-container {
+  position: relative;
+  height: 100%;
+}
+#delBtnOrd {
+  display: none;
+  position: absolute;
+  right: 110px;
+  top: -5px;
+}
+#editOrderBtn {
+  display: none;
+  position: absolute;
+  right: 150px;
+  top: -5px;
+}
+.group-name-and-time-container:hover #delBtnOrd {
+  display: inline;
+  color: grey;
+  outline: none;
+}
+
+.group-name-and-time-container:hover #editOrderBtn {
+  display: inline;
+  color: grey;
+  outline: none;
+}
+
+.chooseTime {
+  vertical-align: bottom;
+
+  padding: 0 0;
+}
+#editedTimeInput {
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.orderErrDel {
+  font-size: 0.8rem;
+  color: red;
+  margin: 0;
+}
+
+.dialogBtn :hover {
+  outline: none;
+}

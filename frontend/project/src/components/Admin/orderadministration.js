@@ -5,6 +5,7 @@ import "./admin.css";
 import CommList from "./CommList";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Modalorder from "./Modal/neworder";
 
 class Orderadmin extends Component {
   constructor(props) {
@@ -87,6 +88,7 @@ class Orderadmin extends Component {
         </div>
         <h6> {this.props.user}</h6>
         <CommList id={this.props.orderid} visibility={this.props.visibility} />
+        <Modalorder />
       </div>
     );
   }

@@ -2,14 +2,20 @@ import React, { Component } from "react";
 import "./navbar.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import { Link } from "react-router-dom";
-
+import {
+  Link,
+  Route,
+  Switch,
+  BrowserRouter as Router,
+  Redirect,
+} from "react-router-dom";
+import Updateuser from "../Admin/Modal/user-info-update";
+import axios from "axios";
 class Navbar extends Component {
   state = {};
-
   logout() {
     localStorage.clear();
-    window.location.reload();
+    window.location.pathname = "/";
   }
 
   render() {
@@ -47,7 +53,6 @@ class Navbar extends Component {
                   {this.props.second}
                 </label>
               </li>
-
               <li className="nav-item dropdown">
                 <label
                   className="nav-link dropdown-toggle"
@@ -63,19 +68,13 @@ class Navbar extends Component {
                   className="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <li>
-                    <label className="dropdown-item">
-                      {this.props.settings}
-                    </label>
-                  </li>
-
-                  <li onClick={() => this.logout()}>
-                    <Link className="logout" to={"/"}>
+                  <Link className="logout" to={"/"}>
+                    <li onClick={this.logout}>
                       <label className="dropdown-item">
                         {this.props.logout}
                       </label>
-                    </Link>
-                  </li>
+                    </li>
+                  </Link>
                 </ul>
               </li>
             </ul>

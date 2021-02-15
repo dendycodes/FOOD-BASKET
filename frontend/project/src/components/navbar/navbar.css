@@ -1,3 +1,17 @@
+
 .logout {
   text-decoration: none;
+}
+
+.upload-photo {
+  color: white;
+}
+.upload-photo input {
+  width: 120px;
+}
+
+.button-photo {
+  border: none;
+  background-color: white;
+  padding: 0;
 }

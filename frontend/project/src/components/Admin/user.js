@@ -11,6 +11,7 @@ class User extends Component {
     this.state = {
       user: "",
       email: "",
+
       shown: false,
     };
   }
@@ -30,9 +31,10 @@ class User extends Component {
       )
 
       .then((res) => {
-        this.setState({ user: res.data.username, email: res.data.email });
-        console.log(this.state.user);
-        console.log(this.state.email);
+        this.setState({
+          user: res.data.username,
+          email: res.data.email,
+        });
       })
 
       .catch((err) => console.log(err));
@@ -47,7 +49,10 @@ class User extends Component {
 
     const url = `https://europe-west1-foodorderproject-fe50a.cloudfunctions.net/api/user/${userid}`;
 
-    axios.delete(url, config).catch((err) => console.log(err));
+    axios
+      .delete(url, config)
+      .then(() => window.location.reload())
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -61,10 +66,7 @@ class User extends Component {
 
     return (
       <div className="User">
-        <img
-          src="https://simpleicon.com/wp-content/uploads/user-5.png"
-          alt="userphoto"
-        ></img>
+        <img src={this.props.img} alt="userphoto"></img>
         <div className="vl"></div>
         <div className="info">
           <h6>

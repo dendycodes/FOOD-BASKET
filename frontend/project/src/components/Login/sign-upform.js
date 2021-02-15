@@ -34,15 +34,22 @@ class SForm extends Component {
     const ops = {
       method: "POST",
       headers: { "content-type": "application/json" },
+      Authorization: `${localStorage.getItem("FBIdToken")}`,
       data: JSON.stringify(newUserData),
       url: loginUrl,
     };
     axios(ops)
       .then((res) => {
+        console.log(res.data);
+        localStorage.setItem(
+          "imageUrl",
+          "https://firebasestorage.googleapis.com/v0/b/foodorderproject-fe50a.appspot.com/o/no-img.png?alt=media"
+        );
+        localStorage.setItem("UserEmail", newUserData.email);
+        localStorage.setItem("username", newUserData.username);
+        localStorage.setItem("createdAt", Math.floor(new Date() / 1000));
         localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
-        localStorage.setItem("UserEmail", `${this.state.email}`);
         window.location.reload();
-        console.log("post response: " + res.username);
       })
       .catch((err) => {
         this.setState({
@@ -82,7 +89,7 @@ class SForm extends Component {
             onChange={this.changeHandler}
           />
         </div>
-        <p>{errors.username}</p>
+        <p className="login-errors">{errors.username}</p>
         <div className="input-group flex-nowrap m-2">
           <span className="input-group-text" id="addon-wrapping">
             <svg
@@ -109,7 +116,7 @@ class SForm extends Component {
             onChange={this.changeHandler}
           />
         </div>
-        <p>{errors.email}</p>
+        <p className="login-errors">{errors.email}</p>
         <div className="input-group flex-nowrap m-2">
           <span className="input-group-text" id="addon-wrapping">
             <svg
@@ -163,11 +170,11 @@ class SForm extends Component {
             onChange={this.changeHandler}
           />
         </div>
-        <p>{errors.confirmPassword}</p>
+        <p className="login-errors"> {errors.confirmPassword}</p>
         <button type="submit" className="btn btn-secondary w-25 m-2">
           Sign up
         </button>
-        <p>{errors.error}</p>
+        <p className="login-errors">{errors.error}</p>
         <Link to={"/"}>
           <label id="tologin" className="link-secondary">
             Already have an account?
