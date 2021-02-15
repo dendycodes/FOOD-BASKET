@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import axios from "axios";
+import "../admin.css";
 class Modalorder extends Component {
   constructor() {
     super();
