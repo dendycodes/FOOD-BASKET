@@ -103,9 +103,13 @@ class Neworder extends Component {
                 maxWidth="sm"
               >
                 <DialogTitle>
-                  Are you sure you want to delete this comment?
+                  Are you sure you want to delete this order?
                 </DialogTitle>
-                <p className="orderErrDel">{this.state.errors.error}</p>
+                <p className="orderErrDel">
+                  {this.state.errors.error === "Unauthorized"
+                    ? "You don't have access to this order"
+                    : this.state.errors.error}
+                </p>
                 <DialogActions className="dialogBtn">
                   <Button
                     onClick={this.handleClose}
@@ -130,7 +134,6 @@ class Neworder extends Component {
             <Router>
               <Link to={`/${id}`}>
                 <button
-                  disabled={this.props.visibility}
                   id="addbutton"
                   className="btn btn-danger"
                   data-bs-toggle="modal"
