@@ -9,7 +9,14 @@
   height: 12%;
   width: 100%;
   color: white;
-  background-color: rgb(167, 38, 51);
+  background-image: linear-gradient(
+    to right top,
+    #aa1731,
+    #9f122a,
+    #950c24,
+    #8a061e,
+    #800118
+  );
   box-sizing: border-box;
   padding: 10px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;

@@ -4,7 +4,7 @@ import "bootstrap/dist/js/bootstrap.js";
 import "./comments.css";
 import axios from "axios";
 import Dialog from "@material-ui/core/Dialog";
-import { Link, BrowserRouter as Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { DialogActions, DialogTitle } from "@material-ui/core";
 import EditComments from "./editComments";
 import Tooltip from "@material-ui/core/Tooltip";

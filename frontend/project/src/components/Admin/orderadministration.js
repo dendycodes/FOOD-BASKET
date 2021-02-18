@@ -5,7 +5,7 @@ import "./admin.css";
 import CommList from "./CommList";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Modalorder from "./Modal/neworder";
+import Deleteorder from "./Modal/OrderDELETE";
 
 class Orderadmin extends Component {
   constructor(props) {
@@ -39,24 +39,11 @@ class Orderadmin extends Component {
             {this.props.created}{" "}
           </h6>
 
-          <button
-            disabled={this.props.visibility}
-            id="addbutton"
-            className="btn btn-danger m-1 "
-            onClick={() => this.deleteOrder(this.props.orderid)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="25"
-              height="25"
-              fill="currentColor"
-              className="bi bi-x"
-              viewBox="0 0 16 16"
-            >
-              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-            </svg>
-            Delete Order
-          </button>
+          <Deleteorder
+            visibility={this.props.visibility}
+            title={"Delete"}
+            text={"Are you sure you want to delete this order?"}
+          />
           <Link to={`/orders/${this.props.orderid}`}>
             <button
               id="addbutton"
@@ -88,7 +75,6 @@ class Orderadmin extends Component {
         </div>
         <h6> {this.props.user}</h6>
         <CommList id={this.props.orderid} visibility={this.props.visibility} />
-        <Modalorder />
       </div>
     );
   }

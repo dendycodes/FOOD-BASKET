@@ -14,7 +14,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 class EditOrders extends Component {
   state = {
@@ -88,7 +87,9 @@ class EditOrders extends Component {
     let date = new Date();
     date.setHours(time.substring(0, 2));
     date.setMinutes(time.substring(3));
+
     this.state.requestedTime = Math.floor(date / 1000);
+
     return (
       <>
         <Tooltip title="Edit Order">

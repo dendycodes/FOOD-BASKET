@@ -29,9 +29,6 @@ class EditComment extends Component {
   }
   handleOpen = () => {
     this.setState({ open: true });
-    this.setState({
-      comment: this.props.comment ? this.props.comment : "",
-    });
   };
 
   handleClose = () => {
@@ -87,7 +84,7 @@ class EditComment extends Component {
             onClick={this.handleOpen}
             id="editBtn"
           >
-            <EditIcon fontSize="small" />
+            <EditIcon fontSize="small" color="action" />
           </IconButton>
         </Tooltip>
         <Dialog

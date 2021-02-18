@@ -172,6 +172,7 @@ class Orders extends Component {
             <div className="profilePhotoContainer">
               <img
                 src={localStorage.getItem("imageUrl")}
+                alt="userprofile"
                 id="userProfilePhoto"
               />
 

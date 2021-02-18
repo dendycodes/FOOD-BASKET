@@ -2,15 +2,8 @@ import React, { Component } from "react";
 import "./navbar.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import {
-  Link,
-  Route,
-  Switch,
-  BrowserRouter as Router,
-  Redirect,
-} from "react-router-dom";
-import Updateuser from "../Admin/Modal/user-info-update";
-import axios from "axios";
+import { Link } from "react-router-dom";
+
 class Navbar extends Component {
   state = {};
   logout() {

@@ -94,10 +94,12 @@ class Admin extends Component {
   render() {
     const date = new Date();
     var visibility = false;
+    var btn = "disabled";
     let orders = this.state.orders ? (
       this.state.orders.map((ord) => {
         if (Math.floor(new Date(date.getTime() / 1000)) >= ord.requestedTime) {
           visibility = true;
+          btn = "secondary";
         }
         return (
           <Orderadmin
@@ -108,6 +110,7 @@ class Admin extends Component {
             hour={new Date(ord.requestedTime * 1000).getHours()}
             minutes={new Date(ord.requestedTime * 1000).getMinutes()}
             visibility={visibility}
+            color={btn}
             created={ord.username}
           />
         );

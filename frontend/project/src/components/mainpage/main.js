@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Navbar from "../navbar/navbar.js";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Orders from "./orederpage.js";
 import axios from "axios";
 import "./main.css";
+import Loading from "../Admin/loading";
 
 class Main extends Component {
   state = {
@@ -23,17 +24,17 @@ class Main extends Component {
   }
 
   render() {
-    let usersMarkup = this.state.users ? (
+    this.state.users ? (
       this.state.users.map((user) => {
         if (user.email === localStorage.getItem("UserEmail")) {
           localStorage.setItem("imageUrl", user.imageUrl);
           localStorage.setItem("username", user.username);
           localStorage.setItem("createdAt", user.createdAt._seconds);
-          return;
         }
+        return;
       })
     ) : (
-      <p>Loading</p>
+      <Loading />
     );
 
     return (

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
+
 import axios from "axios";
 import "../admin.css";
 class Modalorder extends Component {
@@ -40,7 +41,7 @@ class Modalorder extends Component {
 
     axios(ops)
       .then((res) => {
-         window.location.reload();
+        this.props.refresh();
       })
       .catch((err) => {
         this.setState({
@@ -92,7 +93,7 @@ class Modalorder extends Component {
                     onChange={this.changeHandler}
                   />
 
-              <div className="ordErr">{errors.Comment}</div>
+                  <div className="ordErr">{errors.Comment}</div>
                 </div>
               </form>
             </div>
